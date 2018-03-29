@@ -4,6 +4,7 @@
 void main(){
 	printf("hello world\n");
 	printf("master branch and jh branch");
+	printf("merge");
 	return;
 }
 
