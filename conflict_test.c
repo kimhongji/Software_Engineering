@@ -3,8 +3,7 @@
 
 void main(){
 	printf("hello world\n");
-	printf("master branch and master branch");
-	printf("conflict\n");
+	printf("master branch");
 	return;
 }
 
