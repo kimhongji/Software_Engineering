@@ -8,6 +8,6 @@ Created on Thu Mar 29 16:22:35 2018
 a = [1,2,3,4,5]
 
 print(a)
-#change 180329 16:52
+#change 180329 16:41
 for i in range(20):
     print(i)
