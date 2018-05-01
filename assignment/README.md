@@ -4,19 +4,18 @@ Software_engineering
 ===========================
 
 
-## sbtour : 새빛투어 여행 패키지 쇼핑몰
+## Assignment2 : git 이용 team project ( fork & pull-request 사용)
 -------------
-1. Data base
-+ 정지현 김홍지
-    + Table 연결, 데이터 입력  
-2. Node.js
-+ 팀원 모두
-    + 웹 , DB 연결 ( 튜토리얼 소스코드 참고 )
-3. HTML&CSS
-+ 고은나래 정현우
-    + 웹 레이아웃 제작
-
-팀장
+1. 함수 ( time *)
+    + 정지현
+2. 함수 ( block, size, data)
+    + 고은나래 
+3. 함수 ( stat1, stat2 )
+    +  김홍지
+4. Readme, wiki page
+    + 정현우 
+    
+>> 각 함수별 milestone, 3개의 issue(기술, 코드 리뷰)
 
 >2015722086 김홍지  (https://github.com/kimhongji)
 
