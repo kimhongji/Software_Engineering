@@ -1,9 +1,9 @@
-
+﻿
 
 Software_engineering 
 ===========================
 
-1. _Assignment_ : git(fork & pull-request) directory
+1. _Project2_ : git(fork & pull-request) directory
 
 2. _sbtour_ : project directory
 

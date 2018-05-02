@@ -1,10 +1,10 @@
-
+﻿
 
 Software_engineering 
 ===========================
 
 
-## Assignment2 : git 이용 team project ( fork & pull-request 사용)
+## Project2: git 이용 team project ( fork & pull-request 사용)
 -------------
 1. 함수 ( time *)
     + 정지현
