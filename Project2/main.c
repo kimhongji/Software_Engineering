@@ -42,7 +42,7 @@ void filetime2(void){
 void sizecmp(void){
 }
 void blockcmp(void){
- int blk1 = &stat1.st_blocks;
+   int blk1 = &stat1.st_blocks;
    int blk2 = &stat2.st_blocks;
 
    printf("block compare\n");
