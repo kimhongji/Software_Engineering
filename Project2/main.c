@@ -41,8 +41,10 @@ void filestat2(void)
    stat("./text2", &stat2);
 }
 void filetime1(void){
+	time1 = localtime(&stat._mtime);
 }
 void filetime2(void){
+	time2 = localtime(&stat._mtime);
 }
 void sizecmp(void){
 }
