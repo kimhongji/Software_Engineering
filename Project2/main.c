@@ -6,6 +6,7 @@
 
 struct stat stat1, stat2;
 struct tm *time1, *time2;
+int hour1, hour2, min1, min2;
 
 void filestat1(void);
 void filestat2(void);
@@ -41,10 +42,16 @@ void filestat2(void)
    stat("./text2", &stat2);
 }
 void filetime1(void){
-	time1 = localtime(&stat._mtime);
+	time1 = localtime(&stat1.st_mtime);
+	
+	hour1 = time1->tm_hour;
+	min1 = time1->tm_min;
 }
 void filetime2(void){
-	time2 = localtime(&stat._mtime);
+	time2 = localtime(&stat2.st_mtime);
+
+	hour2 = time2->tm_hour;
+	min2 = time2->tm_min;
 }
 void sizecmp(void){
 }
@@ -67,5 +74,21 @@ void blockcmp(void){
 void datecmp(void){
 }
 void timecmp(void){
+	printf("time compare\n");
+
+	if(hour1 < hour2)
+		printf("file1 is early\n");
+
+	else if(hour1 > hour2)
+		printf("file2 is early\n");
+
+	else{
+		if(min1 < min2)
+			printf("file1 is early\n");
+		else if(min1 > min2)
+			printf("file2 is early\n");
+		else
+			printf("same time\n");
+	}
 }
 
