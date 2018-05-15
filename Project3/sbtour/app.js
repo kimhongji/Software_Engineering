@@ -7,7 +7,6 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var join = require('./routes/joinForm'); //joinform add
-var board = require('./routes/board'); //board add 
 var app = express();
 
 // view engine setup

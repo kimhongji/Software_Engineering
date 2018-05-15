@@ -3,10 +3,10 @@ var router = express.Router();
 var mysql = require('mysql');
 var pool = mysql.createPool({
 	connectionLimit: 5,
-	host : 'localhost',
+	host : '서버 ip로 ',
 	user : 'root',
-	database: 'test',
-	password: 'kim581496'
+	database: '바꾸기',
+	password: '서버 바꾸기'
 });
 
 /* GET home page. */
