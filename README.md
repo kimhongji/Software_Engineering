@@ -1,22 +1,55 @@
-ï»¿
+# Software_engineering
 
-Software_engineering 
-===========================
+## sbtour : »õºûÅõ¾î ¿©Çà ÆĞÅ°Áö ¼îÇÎ¸ô
 
-1. _Project2_ : git(fork & pull-request) directory
+1. Data base
+* Á¤ÁöÇö ±èÈ«Áö
+    * Table ¿¬°á, µ¥ÀÌÅÍ ÀÔ·Â
 
-2. _sbtour_ : project directory
+2. Node.js
 
--------------
+* ÆÀ¿ø ¸ğµÎ
+    * À¥ , DB ¿¬°á ( Æ©Åä¸®¾ó ¼Ò½ºÄÚµå Âü°í )
 
-íŒ€ì¥
+3. HTML&CSS
+* °íÀº³ª·¡ Á¤Çö¿ì
+    * À¥ ·¹ÀÌ¾Æ¿ô Á¦ÀÛ
 
->2015722086 ê¹€í™ì§€  (https://github.com/kimhongji)
+## ÆÀÀå
 
-íŒ€ì›
+* 2015722086 ±èÈ«Áö  (https://github.com/kimhongji)
 
->2015722039 ì •í˜„ìš°  (https://github.com/Ryu-a)
+## ÆÀ¿ø
 
->2015722070 ê³ ì€ë‚˜ë˜ (https://github.com/Kkenr)
+* 2015722039 Á¤Çö¿ì  (https://github.com/Ryu-a)  
+* 2015722070 °íÀº³ª·¡ (https://github.com/Kkenr)  
+* 2015722082 Á¤ÁöÇö  (https://github.com/JUNGJI024)
 
->2015722082 ì •ì§€í˜„  (https://github.com/JUNGJI024)
+## DB
+
+* °Ô½ÃÆÇ Table + °ü¸®ÀÚ
+* ¿¹½Ã µ¥ÀÌÅÍ insert
+* DB °øµ¿¼­¹ö ¸¸µé±â
+
+## À¥
+
+* [Bootstrap](https://startbootstrap.com/) »À´ë, µ¡ºÙÀÌ±â
+
+* È¨ÆäÀÌÁö ±âÁØ ´ÙÀÌ¾î±×·¥
+
+![web diagram](./doc_img/web_diagram.jpg)
+
+È¸¿ø°¡ÀÔ ÆûÀº **³×ÀÌ¹ö¿Í ÇÏ³ªÅõ¾î**¸¦ Âü°í
+
+## ¼­¹ö
+
+* ºÎºĞ°³¹ß
+
+![file diagram](./doc_img/file_diagram.jpg) 
+
+## °³¹ß ¹æ½Ä
+
+Agile software development
+
+Github¸¦ ÀÌ¿ëÇØ branch»ı¼º, pull request ¹æ½ÄÀ¸·Î °³¹ß
+![pull request](./doc_img/pull_request.jpg)
