@@ -132,7 +132,8 @@
 							</ul>
 							<div class="tab-content" id="myTabContent">
 							  <div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="package-tab">
-								<form class="form-wrap">
+<form class="form-wrap" method="post" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/board/update">
+									
 									<!--
 									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">
 									<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
@@ -144,12 +145,23 @@
 										onblur="this.placeholder = 'Child '">
 									-->
 						<label for="r_arrive_city" class="ir">여행도시</label><br>
-						<input type="hidden"><input type="text" class="form-control date-picker"id="om_text_search_city" name="area" placeholder="도시명을 입력해 주세요" onblur="this.placeholder" >
+<input type="hidden">
+<input type="text" class="form-control" id="om_text_search_city" name="package_name" placeholder="도시명을 입력해 주세요" onblur="this.placeholder">
 <label for="r_arrive_city" class="ir">출발일</label><br>
 <input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
 <label for="r_arrive_city" class="ir">도착일</label>
 <br>
 <input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
+
+<ul>
+<input type="radio" name="package_select" value="korea" checked="checked">한국
+<input type="radio" name="package_select" value="oversea">해외
+	
+</ul>
+<button class="primary-btn" type="submit" id="jq_oversea_search">
+	검색하기
+	<span></span>
+</button>
 					</form>
 				</div>					
 			</section>
