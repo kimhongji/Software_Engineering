@@ -55,15 +55,37 @@
 				<div class="container main-menu">
 					<div class="row align-items-center justify-content-between d-flex">
 				      <div class="nav-menu" id="logo">
-				        <a href="index.html">새빛 투어</a>
+						<a href="index.html"><font size="5pt">Saebit Tour</font></a>
 				      </div>
 				      <nav id="nav-menu-container">
 				        <ul class="nav-menu">
 				          <li><a href="index.html">Home</a></li>
-				          <li><a href="about.html">About</a></li>
-				          <li><a href="packages.html">Packages</a></li>
-				          <li><a href="hotels.html">Hotels</a></li>
-				          <li><a href="insurance.html">Insurence</a></li>
+<li class="menu-has-children">
+	<a href="">국내</a>
+	<ul>
+		<li>
+			<a href="blog-home.html">Blog Home</a>
+		</li>
+		<li>
+			<a href="blog-single.html">Blog Single</a>
+		</li>
+	</ul>
+</li>
+<li class="menu-has-children">
+	<a href="">해외</a>
+	<ul>
+		<li>
+			<a href="blog-home.html">Blog Home</a>
+		</li>
+		<li>
+			<a href="blog-single.html">Blog Single</a>
+		</li>
+	</ul>
+</li>
+<li>
+	<a href="index.html">게시판</a>
+</li>
+<!--
 				          <li class="menu-has-children"><a href="">Blog</a>
 				            <ul>
 				              <li><a href="blog-home.html">Blog Home</a></li>
@@ -79,9 +101,10 @@
 						              <li><a href="#">Item Two</a></li>
 						            </ul>
 						          </li>					                		
-				            </ul>
+							</ul>
+ -->
 				          </li>					          					          		          
-				          <li><a href="contact.html">Contact</a></li>
+						  <li><a href="contact.html">Contact</a></li>
 				        </ul>
 				      </nav><!-- #nav-menu-container -->					      		  
 					</div>
@@ -104,52 +127,30 @@
 						<div class="col-lg-4 col-md-6 banner-right">
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
 							  <li class="nav-item">
-							    <a class="nav-link active" id="flight-tab" data-toggle="tab" href="#flight" role="tab" aria-controls="flight" aria-selected="true">Flights</a>
-							  </li>
-							  <li class="nav-item">
-							    <a class="nav-link" id="hotel-tab" data-toggle="tab" href="#hotel" role="tab" aria-controls="hotel" aria-selected="false">Hotels</a>
-							  </li>
-							  <li class="nav-item">
-							    <a class="nav-link" id="holiday-tab" data-toggle="tab" href="#holiday" role="tab" aria-controls="holiday" aria-selected="false">Holidays</a>
+							    <a class="nav-link active" id="flight-tab" data-toggle="tab" href="#package" role="tab" aria-controls="package" aria-selected="true">패키지</a>
 							  </li>
 							</ul>
 							<div class="tab-content" id="myTabContent">
-							  <div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="flight-tab">
+							  <div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="package-tab">
 								<form class="form-wrap">
-									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
+									<!--
+									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">
 									<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
 									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
 									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-									<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-									<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">							
-									<a href="#" class="primary-btn text-uppercase">Search flights</a>									
-								</form>
-							  </div>
-							  <div class="tab-pane fade" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
-								<form class="form-wrap">
-									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-									<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-									<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-									<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">						
-									<a href="#" class="primary-btn text-uppercase">Search Hotels</a>									
-								</form>							  	
-							  </div>
-							  <div class="tab-pane fade" id="holiday" role="tabpanel" aria-labelledby="holiday-tab">
-								<form class="form-wrap">
-									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-									<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-									<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-									<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">							
-									<a href="#" class="primary-btn text-uppercase">Search Holidays</a>									
-								</form>							  	
-							  </div>
-							</div>
-						</div>
-					</div>
+									<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''"
+										onblur="this.placeholder = 'Adults '">
+									<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''"
+										onblur="this.placeholder = 'Child '">
+									-->
+						<label for="r_arrive_city" class="ir">여행도시</label><br>
+						<input type="hidden"><input type="text" class="form-control date-picker"id="om_text_search_city" name="area" placeholder="도시명을 입력해 주세요" onblur="this.placeholder" >
+<label for="r_arrive_city" class="ir">출발일</label><br>
+<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
+<label for="r_arrive_city" class="ir">도착일</label>
+<br>
+<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
+					</form>
 				</div>					
 			</section>
 			<!-- End banner Area -->
