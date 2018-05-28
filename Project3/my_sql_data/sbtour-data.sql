@@ -51,15 +51,18 @@ VALUES (002, 01, 001),
 COMMIT;
 
 SET AUTOCOMMIT=0;
-INSERT INTO seller(seller_id, seller_name, seller_phone, seller_email, seller_account )
-VALUES (001, '난판매자1', '010-1234-1234','sell1@gmmail.com', '국민 1111'),
-(002, '난판매자2', '010-1234-5678','sell2@gmmail.com', '국민 2222');
+INSERT INTO customer(customer_id, customer_name, customer_phone, customer_email, customer_account )
+VALUES ('001', '난소비자1', '010-1234-1234','sell1@gmmail.com', '국민 110-111-000000'),
+('002', '난소비자2', '010-1234-5678','sell2@gmmail.com', '국민 110-222-000000');
 COMMIT;
 
 SET AUTOCOMMIT=0;
-INSERT INTO package(package_id, seller_id, tour_id, package_name, package_explanation, package_img, package_term, package_validity, package_cost, package_closed)
-VALUES ('부산여행', 001, 002,'부산놀이','다함께 부산을','busan.jpg','2018-05-17/2018-05-23',3,30,'2018-05-17');
+INSERT INTO seller(seller_id, seller_name, seller_phone, seller_email, seller_account )
+VALUES ('001', '난판매자1', '010-1234-1234','sell1@gmmail.com', '국민 110-111-000000'),
+('002', '난판매자2', '010-1234-5678','sell2@gmmail.com', '국민 110-222-000000');
 COMMIT;
 
-
-
+SET AUTOCOMMIT=0;
+INSERT INTO package(package_id, seller_id, tour_id, package_name, package_explanation, package_img, package_start, package_arrive, package_term, package_validity, package_cost, package_closed)
+VALUES ('부산여행', '001', 002,'부산놀이','다함께 부산을','busan.jpg','2018/05/17', '2018/05/23', '2박3일', 3,30,'2018/05/17');
+COMMIT;
