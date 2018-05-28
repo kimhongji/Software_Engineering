@@ -147,17 +147,17 @@
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="korea" role="tabpanel" aria-labelledby="korea-tab">
-							<form class="form-wrap" method="get" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/korea">
+							<form class="form-wrap" method="get" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/packages">
 								<label for="r_arrive_city" class="ir">여행도시</label>
 								<br>
 								<input type="hidden">
-								<input type="text" class="form-control" id="om_text_search_city" name="package_name" placeholder="도시명을 입력해 주세요" onblur="this.placeholder">
+								<input type="text" class="form-control" id="city_name" name="city_name" placeholder="도시명을 입력해 주세요" onblur="this.placeholder">
 								<label for="r_arrive_city" class="ir">출발일</label>
 								<br>
-								<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
+								<input type="text" class="form-control date-picker" name="start" placeholder="Start" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
 								<label for="r_arrive_city" class="ir">도착일</label>
 								<br>
-								<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
+								<input type="text" class="form-control date-picker" name="return" placeholder="Return" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
 
 
 								<button class="primary-btn" type="submit" id="jq_korea_search">
@@ -167,17 +167,17 @@
 							</form>
 						</div>
 						<div class="tab-pane fade" id="oversea" role="tabpanel" aria-labelledby="oversea-tab">
-								<form class="form-wrap" method="get" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/oversea">
+								<form class="form-wrap" method="get" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/packages">
 									<label for="r_arrive_city" class="ir">여행도시</label>
 									<br>
 									<input type="hidden">
-									<input type="text" class="form-control" id="om_text_search_city" name="package_name" placeholder="도시명을 입력해 주세요" onblur="this.placeholder">
+									<input type="text" class="form-control" id="om_text_search_city" name="city_name" placeholder="도시명을 입력해 주세요" onblur="this.placeholder">
 									<label for="r_arrive_city" class="ir">출발일</label>
 									<br>
-									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
+									<input type="text" class="form-control date-picker" name="start" placeholder="Start" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
 									<label for="r_arrive_city" class="ir">도착일</label>
 									<br>
-									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
+									<input type="text" class="form-control date-picker" name="return" placeholder="Return" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
 	
 	
 									<button class="primary-btn" type="submit" id="jq_oversea_search">

@@ -75,26 +75,29 @@ router.get('/insurance', function(req, res, next) {
 });
 
 
-/* GET  */
+/* GET 
 router.get('/packages', function(req, res, next) {
 	res.render('packages',{title: "packages"});
 });
-
-/*
+*/ 
+/**/
 router.get('/packages', function(req,res,next){
+	var city = req.body.city_name;
+	
 	pool.getConnection(function (err,connection){
 		if(err) return res.sendStatus(400);
-		var sqlForSelectList = "SELECT * FROM package where ";
-		connection.query(sqlForSelectList, function (err,rows){
+		var sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where city_id in (select city_id from city where city_name = ? ))" ;
+		connection.query(sqlForSelectList,[city], function (err,rows){
 			if(err) console.error("err : " + err);
+			console.log("city : "+JSON.stringify(city));
 			console.log("rows : "+JSON.stringify(rows));
 
-			res.render('package', { title: 'korea package', rows: rows });
+			res.render('packages', { title: 'korea package', rows: rows });
 			connection.release();
 		});
 	});
 });
-*/
+
 //-------------------------------------------------------------
 
 //router.post()
