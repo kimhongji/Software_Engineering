@@ -74,5 +74,27 @@ router.get('/insurance', function(req, res, next) {
 	res.render('insurance',{title: "insurance"});
 });
 
+
+/* GET  */
+router.get('/packages', function(req, res, next) {
+	res.render('packages',{title: "packages"});
+});
+
+/*
+router.get('/packages', function(req,res,next){
+	pool.getConnection(function (err,connection){
+		if(err) return res.sendStatus(400);
+		var sqlForSelectList = "SELECT * FROM package where ";
+		connection.query(sqlForSelectList, function (err,rows){
+			if(err) console.error("err : " + err);
+			console.log("rows : "+JSON.stringify(rows));
+
+			res.render('package', { title: 'korea package', rows: rows });
+			connection.release();
+		});
+	});
+});*/
 //-------------------------------------------------------------
+
+//router.post()
 module.exports = router;
