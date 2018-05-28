@@ -29,9 +29,9 @@ CREATE TABLE tour (
 CREATE TABLE seller (
   seller_id VARCHAR(45) NOT NULL,
   seller_name VARCHAR(45) NOT NULL,
-  seller_phone SMALLINT UNSIGNED NOT NULL,
+  seller_phone VARCHAR(45) NOT NULL,
   seller_email SMALLINT UNSIGNED NOT NULL,
-  seller_account SMALLINT UNSIGNED NOT NULL,
+  seller_account VARCHAR(45) NOT NULL,
   PRIMARY KEY  (seller_id),
   KEY idx_seller_name (seller_name)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -58,7 +58,7 @@ create table customer(
     customer_name VARCHAR(50) NOT NULL,
     customer_phone VARCHAR(30) NOT NULL,
     customer_email VARCHAR(30) NOT NULL,
-    customer_account SMALLINT UNSIGNED NOT NULL,
+    customer_account VARCHAR(30) NOT NULL,
     primary key(customer_id),
     KEY idx_customer_name (customer_name)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

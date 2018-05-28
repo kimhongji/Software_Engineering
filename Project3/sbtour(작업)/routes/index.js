@@ -93,7 +93,8 @@ router.get('/packages', function(req,res,next){
 			connection.release();
 		});
 	});
-});*/
+});
+*/
 //-------------------------------------------------------------
 
 //router.post()
