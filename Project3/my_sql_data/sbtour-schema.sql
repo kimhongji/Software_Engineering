@@ -90,4 +90,3 @@ create table payment(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 set foreign_key_checks=0;
-
