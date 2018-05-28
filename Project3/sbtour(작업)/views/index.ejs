@@ -76,61 +76,43 @@
 		<div class="container main-menu">
 			<div class="row align-items-center justify-content-between d-flex">
 				<div class="nav-menu" id="logo">
-					<a href="index.html">
+					<a href="/index">
 						<font size="5pt">Saebit Tour</font>
 					</a>
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
 						<li>
-							<a href="index.html">Home</a>
+							<a href="/index">Home</a>
 						</li>
 						<li class="menu-has-children">
-							<a href="">국내</a>
+							<a href='/packages'>국내</a>
 							<ul>
 								<li>
-									<a href="blog-home.html">Blog Home</a>
+									<a href="/blog-home">Blog Home</a>
 								</li>
 								<li>
-									<a href="blog-single.html">Blog Single</a>
+									<a href="/blog-single">Blog Single</a>
 								</li>
 							</ul>
 						</li>
 						<li class="menu-has-children">
-							<a href="">해외</a>
+							<a href="/packages">해외</a>
 							<ul>
 								<li>
-									<a href="blog-home.html">Blog Home</a>
+									<a href="/blog-home">Blog Home</a>
 								</li>
 								<li>
-									<a href="blog-single.html">Blog Single</a>
+									<a href="/blog-single">Blog Single</a>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<a href="index.html">게시판</a>
+							<a href="/korea">게시판</a>
 						</li>
-						<!--
-				          <li class="menu-has-children"><a href="">Blog</a>
-				            <ul>
-				              <li><a href="blog-home.html">Blog Home</a></li>
-				              <li><a href="blog-single.html">Blog Single</a></li>
-				            </ul>
-				          </li>	
-				          <li class="menu-has-children"><a href="">Pages</a>
-				            <ul>
-				            	  <li><a href="elements.html">Elements</a></li>
-						          <li class="menu-has-children"><a href="">Level 2 </a>
-						            <ul>
-						              <li><a href="#">Item One</a></li>
-						              <li><a href="#">Item Two</a></li>
-						            </ul>
-						          </li>					                		
-							</ul>
- -->
 						</li>
 						<li>
-							<a href="contact.html">Contact</a>
+							<a href="/contact">Contact</a>
 						</li>
 					</ul>
 				</nav>
@@ -157,31 +139,15 @@
 				<div class="col-lg-4 col-md-6 banner-right">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link active" id="flight-tab" data-toggle="tab" href="#package" role="tab" aria-controls="package" aria-selected="true">국내여행</a>
+							<a class="nav-link active" id="korea-tab" data-toggle="tab" href="#korea" role="tab" aria-controls="korea" aria-selected="true">국내여행</a>
 						</li>
-					</ul>
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link active" id="flight-tab" data-toggle="tab" href="#package" role="tab" aria-controls="package" aria-selected="true">해외여행</a>
+							<a class="nav-link" id="oversea-tab" data-toggle="tab" href="#oversea" role="tab" aria-controls="oversea" aria-selected="false">해외여행</a>
 						</li>
 					</ul>
-
-
-
 					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="package-tab">
-							<form class="form-wrap" method="post" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/board/update">
-
-								<!--
-									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">
-									<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-									<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''"
-										onblur="this.placeholder = 'Adults '">
-									<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''"
-										onblur="this.placeholder = 'Child '">
-									-->
+						<div class="tab-pane fade show active" id="korea" role="tabpanel" aria-labelledby="korea-tab">
+							<form class="form-wrap" method="get" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/korea">
 								<label for="r_arrive_city" class="ir">여행도시</label>
 								<br>
 								<input type="hidden">
@@ -194,12 +160,36 @@
 								<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
 
 
-								<button class="primary-btn" type="submit" id="jq_oversea_search">
+								<button class="primary-btn" type="submit" id="jq_korea_search">
 									검색하기
 									<span></span>
 								</button>
 							</form>
 						</div>
+						<div class="tab-pane fade" id="oversea" role="tabpanel" aria-labelledby="oversea-tab">
+								<form class="form-wrap" method="get" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/oversea">
+									<label for="r_arrive_city" class="ir">여행도시</label>
+									<br>
+									<input type="hidden">
+									<input type="text" class="form-control" id="om_text_search_city" name="package_name" placeholder="도시명을 입력해 주세요" onblur="this.placeholder">
+									<label for="r_arrive_city" class="ir">출발일</label>
+									<br>
+									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
+									<label for="r_arrive_city" class="ir">도착일</label>
+									<br>
+									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
+	
+	
+									<button class="primary-btn" type="submit" id="jq_oversea_search">
+										검색하기
+										<span></span>
+									</button>
+								</form>
+							</div>
+					   </div>
+				</div>
+			</div>
+		</div>
 	</section>
 	<!-- End banner Area -->
 
@@ -223,7 +213,8 @@
 						</div>
 						<div class="desc">
 							<a href="#" class="price-btn">$150</a>
-							<h4>Mountain River</h4>
+							<!--이런식으로 data 추가  -->
+							<h4><%=rows[0].package_id%></h4> 
 							<p>Paraguay</p>
 						</div>
 					</div>

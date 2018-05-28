@@ -91,6 +91,7 @@ CREATE TABLE package (
   CONSTRAINT `fk_tour_id` FOREIGN KEY (tour_id) REFERENCES tour (tour_id) ON DELETE RESTRICT ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 #----------------------------------------------------------------------------------------------------------------------------------
 
 #결제정보
