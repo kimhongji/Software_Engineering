@@ -75,14 +75,34 @@ router.get('/insurance', function(req, res, next) {
 });
 
 
-/* GET 
-router.get('/packages', function(req, res, next) {
-	res.render('packages',{title: "packages"});
+/* GET */ 
+router.get('/packages/:name', function(req, res, next) {
+	var isKorea = req.params.name;
+
+	if (isKorea === 'korea'){
+		var Korea = "대한민국";
+	} 
+	else{
+		var Korea = "일본"; //ifelse 로 예외처리
+	} 
+
+	pool.getConnection(function (err,connection){
+		if(err) return res.sendStatus(400);
+		var sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where country_id in (select country_id from country where country_category = ? ))" ;
+		connection.query(sqlForSelectList,[Korea], function (err,rows){
+			if(err) console.error("err : " + err);
+
+			console.log("isKorea : "+JSON.stringify(Korea));
+			console.log("rows : "+JSON.stringify(rows[0]));
+			res.render('packages', { title: 'korea package', rows: rows });
+			connection.release();
+		});
+	});
 });
-*/ 
+
 /**/
-router.get('/packages', function(req,res,next){
-	var city = req.body.city_name;
+router.get('/packages_search', function(req,res,next){
+	var city = req.query.city_name;
 	
 	pool.getConnection(function (err,connection){
 		if(err) return res.sendStatus(400);
@@ -92,7 +112,7 @@ router.get('/packages', function(req,res,next){
 			console.log("city : "+JSON.stringify(city));
 			console.log("rows : "+JSON.stringify(rows));
 
-			res.render('packages', { title: 'korea package', rows: rows });
+			res.render('packages_search', { title: 'korea package', rows: rows });
 			connection.release();
 		});
 	});

@@ -86,7 +86,7 @@
 							<a href="/index">Home</a>
 						</li>
 						<li class="menu-has-children">
-							<a href='/packages'>국내</a>
+							<a href='/packages/korea' name="isKorea" >국내</a>
 							<ul>
 								<li>
 									<a href="/blog-home">Blog Home</a>
@@ -97,7 +97,7 @@
 							</ul>
 						</li>
 						<li class="menu-has-children">
-							<a href="/packages">해외</a>
+							<a href="/packages/oversea" name="isKorea" >해외</a>
 							<ul>
 								<li>
 									<a href="/blog-home">Blog Home</a>
@@ -147,7 +147,7 @@
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="korea" role="tabpanel" aria-labelledby="korea-tab">
-							<form class="form-wrap" method="get" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/packages">
+							<form class="form-wrap" method="get" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/packages_search">
 								<label for="r_arrive_city" class="ir">여행도시</label>
 								<br>
 								<input type="hidden">
@@ -167,7 +167,7 @@
 							</form>
 						</div>
 						<div class="tab-pane fade" id="oversea" role="tabpanel" aria-labelledby="oversea-tab">
-								<form class="form-wrap" method="get" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/packages">
+								<form class="form-wrap" method="get" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/packages_search">
 									<label for="r_arrive_city" class="ir">여행도시</label>
 									<br>
 									<input type="hidden">
