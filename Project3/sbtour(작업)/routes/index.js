@@ -30,6 +30,20 @@ router.get('/', function(req, res, next) {
 //각 get 마다 필요한 query 문으로 data select 해서 가져와서 출력 ex)get '/' 함수
 
 /* GET korea 여행 home */
+router.get('/board', function(req, res, next) {
+	pool.getConnection(function(err,connection){
+		if(err) return res.sendStatus(400);
+		connection.query('SELECT * FROM board', function(err,rows){
+			if(err){connection.release();
+				return res.send(400,'could not get a connection');
+			} console.error("err: "+err);
+			console.log("rows: "+JSON.stringify(rows));
+			res.render('board',{title:'board',rows: rows});
+			connection.release();
+		});
+	});
+});
+
 router.get('/korea', function(req, res, next) {
 	res.render('korea',{title: "국내여행"});
 });
