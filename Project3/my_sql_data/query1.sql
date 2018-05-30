@@ -1,18 +1,4 @@
-use sbtour;
-
-SELECT *
-from city
-order by city_id;
-
-SELECT *
-from country
-order by country_id;
-
-select *
-from seller;
-
-select *
-from tour;
-
-select *
-from package;
+select * from package where tour_id in
+		(select tour_id from tour where city_id in
+			(select city_id from city where city_name = "부산")); 
+			

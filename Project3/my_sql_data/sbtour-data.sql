@@ -64,5 +64,5 @@ COMMIT;
 
 SET AUTOCOMMIT=0;
 INSERT INTO package(package_id, seller_id, tour_id, package_name, package_explanation, package_img, package_start, package_arrive, package_term, package_validity, package_cost, package_closed, package_hit)
-VALUES ('부산여행', '001', 002,'부산놀이','다함께 부산을','busan.jpg','2018-05-17', '2018-05-23', '2박3일', 3, 30, '2018-05-17', 0);
+VALUES ('부산여행', '001', 002,'부산놀이','다함께 부산을','busan.jpg','2018/05/17', '2018/05/23', '2박3일', 3, 30, '2018/05/17', 0);
 COMMIT;
