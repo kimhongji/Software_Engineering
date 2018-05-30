@@ -75,48 +75,45 @@
 		</div>
 		<div class="container main-menu">
 			<div class="row align-items-center justify-content-between d-flex">
-				<div class="nav-menu" id="logo">
-					<a href="/index">
-						<font size="5pt">Saebit Tour</font>
-					</a>
-				</div>
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<li>
-							<a href="/index">Home</a>
-						</li>
-						<li class="menu-has-children">
-							<a href='/packages'>국내</a>
-							<ul>
-								<li>
-									<a href="/blog-home">Blog Home</a>
-								</li>
-								<li>
-									<a href="/blog-single">Blog Single</a>
-								</li>
-							</ul>
-						</li>
-						<li class="menu-has-children">
-							<a href="/packages">해외</a>
-							<ul>
-								<li>
-									<a href="/blog-home">Blog Home</a>
-								</li>
-								<li>
-									<a href="/blog-single">Blog Single</a>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<a href="/korea">게시판</a>
-						</li>
-						</li>
-						<li>
-							<a href="/contact">Contact</a>
-						</li>
+					<div class="nav-menu" id="logo">
+				<a href="/index"><font size="5pt">Saebit Tour</font></a>
+					</div>
+					<nav id="nav-menu-container">
+						<ul class="nav-menu">
+							<li><a href="/index">Home</a></li>
+<li class="menu-has-children">
+<a href="/korea">국내</a>
+</li>
+<li class="menu-has-children">
+<a href="">해외</a>
+<ul>
+<li>
+	<a href="/oversea">동남아/대만</a>
+</li>
+<li>
+	<a href="/oversea">중국/홍콩</a>
+</li>
+<li>
+	<a href="/oversea">일본</a>
+</li>
+<li>
+	<a href="/oversea">유럽</a>
+</li>
+<li>
+	<a href="/oversea">미주/중남미/하와이</a>
+</li>
+<li>
+	<a href="/oversea">남태평양/괌</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="/board">게시판</a>
+</li>
+	</li>
+			<li><a href="/contact">Contact</a></li>
 					</ul>
-				</nav>
-				<!-- #nav-menu-container -->
+					</nav><!-- #nav-menu-container -->
 			</div>
 		</div>
 	</header>
@@ -178,8 +175,8 @@
 									<label for="r_arrive_city" class="ir">도착일</label>
 									<br>
 									<input type="text" class="form-control date-picker" name="return" placeholder="Return" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-	
-	
+
+
 									<button class="primary-btn" type="submit" id="jq_oversea_search">
 										검색하기
 										<span></span>
@@ -214,7 +211,7 @@
 						<div class="desc">
 							<a href="#" class="price-btn">$150</a>
 							<!--이런식으로 data 추가  -->
-							<h4><%=rows[0].package_id%></h4> 
+							<h4><%=rows[0].package_id%></h4>
 							<p>Paraguay</p>
 						</div>
 					</div>

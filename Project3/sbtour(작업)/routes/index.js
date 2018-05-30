@@ -6,7 +6,7 @@ var pool = mysql.createPool({
 	host : '127.0.0.1',
 	user : 'root',
 	database: 'sbtour',
-	password: 'toqlc123'
+	password: '123321123'
 });
 
 /* GET home page. */
@@ -74,16 +74,18 @@ router.get('/insurance', function(req, res, next) {
 	res.render('insurance',{title: "insurance"});
 });
 
-
-/* GET 
+router.get('/board', function(req, res, next) {
+	res.render('board',{title: "board"});
+});
+/* GET
 router.get('/packages', function(req, res, next) {
 	res.render('packages',{title: "packages"});
 });
-*/ 
+*/
 /**/
 router.get('/packages', function(req,res,next){
 	var city = req.body.city_name;
-	
+
 	pool.getConnection(function (err,connection){
 		if(err) return res.sendStatus(400);
 		var sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where city_id in (select city_id from city where city_name = ? ))" ;
