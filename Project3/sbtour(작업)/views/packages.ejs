@@ -21,6 +21,9 @@
 	<!--
 			CSS
 			============================================= -->
+	<link rel="stylesheet" href="../css/common.min.css" type="text/css" />
+	<link rel="stylesheet" href="../css/side.css" type="text/css" />		
+	<link rel="stylesheet" href="../css/search.min.css" type="text/css" />
 	<link rel="stylesheet" href="../css/linearicons.css">
 	<link rel="stylesheet" href="../css/font-awesome.min.css">
 	<link rel="stylesheet" href="../css/bootstrap.css">
@@ -30,6 +33,7 @@
 	<link rel="stylesheet" href="../css/animate.min.css">  
 	<link rel="stylesheet" href="../css/owl.carousel.css">
 	<link rel="stylesheet" href="../css/main.css">
+
 </head>
 
 <body>
@@ -81,41 +85,44 @@
 					</a>
 				</div>
 				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<li>
-							<a href="/index">Home</a>
-						</li>
-						<li class="menu-has-children">
-							<a href='/packages'>국내</a>
-							<ul>
-								<li>
-									<a href="/blog-home">Blog Home</a>
-								</li>
-								<li>
-									<a href="/blog-single">Blog Single</a>
-								</li>
-							</ul>
-						</li>
-						<li class="menu-has-children">
-							<a href="/packages">해외</a>
-							<ul>
-								<li>
-									<a href="/blog-home">Blog Home</a>
-								</li>
-								<li>
-									<a href="/blog-single">Blog Single</a>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<a href="/korea">게시판</a>
-						</li>
-						</li>
-						<li>
-							<a href="/contact">Contact</a>
-						</li>
-					</ul>
-				</nav>
+						<ul class="nav-menu">
+							<li>
+								<a href="/index">Home</a>
+							</li>
+							<li class="menu-has-children">
+									<a href="/packages/korea">국내</a>
+							</li>
+							<li class="menu-has-children">
+								<a href="">해외</a>
+								<ul>
+									<li>
+										<a href="/packages/sa">동남아/대만</a>
+									</li>
+									<li>
+										<a href="/packages/china">중국/홍콩</a>
+									</li>
+									<li>
+										<a href="/packages/japan">일본</a>
+									</li>
+									<li>
+										<a href="/packages/europe">유럽</a>
+									</li>
+									<li>
+										<a href="/packages/hawaii">미주/중남미/하와이</a>
+									</li>
+									<li>
+										<a href="/packages/guam">남태평양/괌</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="/board">게시판</a>
+							</li>
+							<li>
+								<a href="/contact">Contact</a>
+							</li>
+						</ul>
+					</nav>
 				<!-- #nav-menu-container -->
 			</div>
 		</div>
@@ -204,17 +211,23 @@
 			
 
 			<!-- Start destinations Area -->
-			<section class="destinations-area section-gap">
-				<div class="container">
-		            <div class="row d-flex justify-content-center">
-		                <div class="menu-content pb-40 col-lg-8">
-		                    <div class="title text-center">
-		                        <h1 class="mb-10">Popular Destinations</h1>
-		                        <p>We all live in an age that belongs to the young at heart. Life that is becoming extremely fast, day to.</p>
-		                    </div>
-		                </div>
-					</div>
-										
+			<section class="destinations-area section-gap" id=package_info>
+					<div class="container">
+						<div class="row d-flex justify-content-center">
+							<div class="menu-content pb-40 col-lg-8">
+								<div class="title text-center">
+									<h1 class="mb-10">Popular Destinations</h1>
+									<p>We all live in an age that belongs to the young at heart. Life that is becoming extremely fast, day to.</p>
+								</div>
+							</div>
+						</div>
+						<div class="button-group-area mt-10">
+								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=lowprice" class="genric-btn primary-border radius" id="lowprice" name="sort">낮은가격순</a>
+								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=highprice" class="genric-btn success-border radius" id="highprice" name="sort">높은가격순</a>
+								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=hit" class="genric-btn info-border radius" id="hit" name="sort">인기순</a>
+								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=named" class="genric-btn warning-border radius" id="named" name="sort">이름순</a>
+								<a href="/packages_sort/ex2" class="genric-btn danger-border radius" id="ex2" name="sort">필터</a>
+						</div>									
 					<div class="row">
 						<%
 							for(var i =0; i<rows.length; i++){
@@ -267,26 +280,7 @@
 			
 
 			<!-- Start home-about Area -->
-			<section class="home-about-area">
-				<div class="container-fluid">
-					<div class="row align-items-center justify-content-end">
-						<div class="col-lg-6 col-md-12 home-about-left">
-							<h1>
-								Did not find your Package? <br>
-								Feel free to ask us. <br>
-								We‘ll make it for you
-							</h1>
-							<p>
-								inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed.
-							</p>
-							<a href="#" class="primary-btn text-uppercase">request custom price</a>
-						</div>
-						<div class="col-lg-6 col-md-12 home-about-right no-padding">
-							<img class="img-fluid" src="../img/packages/about-img.jpg" alt="">
-						</div>
-					</div>
-				</div>	
-			</section>
+			
 			<!-- End home-about Area -->
 
 			<!-- start footer Area -->		

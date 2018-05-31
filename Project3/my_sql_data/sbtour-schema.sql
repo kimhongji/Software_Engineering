@@ -125,19 +125,24 @@ create table reservation(
 #----------------------------------------------------------------------------------------------------------------------------------
 
 #게시판
+
 create table board(
-	board_id  SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,	#게시글 아이디 (PK)
-	customer_id  VARCHAR(45) NOT NULL, 						#소비자 아이디 (FK)
-    package_id VARCHAR(45) NOT NULL,						#패키지 아이디 (FK)
-    board_title  VARCHAR(45) NOT NULL,						#게시글 제목
-    board_content MEDIUMTEXT NOT NULL, 						#게시글 내용
-    board_img  MEDIUMTEXT NOT NULL,							#게시글 이미지
-    board_rating SMALLINT UNSIGNED NOT NULL,				#게시글 평점
-    board_hit SMALLINT UNSIGNED NOT NULL,					#게시글 조회수
+   board_id  SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,   #게시글 아이디 (PK)
+   customer_id  VARCHAR(45) NOT NULL,                  #소비자 아이디 (FK)
+    package_id VARCHAR(45) NOT NULL,                  #패키지 아이디 (FK)
+    board_title  VARCHAR(45) NOT NULL,                  #게시글 제목
+    board_start VARCHAR(45) NOT NULL,
+    board_arrive VARCHAR(45) NOT NULL,
+    board_content MEDIUMTEXT NOT NULL,                   #게시글 내용
+    board_img  MEDIUMTEXT NOT NULL,                     #게시글 이미지
+    board_rating SMALLINT UNSIGNED NOT NULL,            #게시글 평점
+    board_hit SMALLINT UNSIGNED NOT NULL,               #게시글 조회수
     primary key(board_id),
     KEY idx_board_id (board_id),
-    CONSTRAINT `fk_package_id1` FOREIGN KEY (package_id) REFERENCES package (package_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT `fk_customer_id1` FOREIGN KEY (customer_id) REFERENCES customer (customer_id) ON DELETE RESTRICT ON UPDATE CASCADE
+    #꼭 다시 고쳐야 한다~~~`***********************************
+   CONSTRAINT `fk_package_id1` FOREIGN KEY (package_id) REFERENCES package (package_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+ CONSTRAINT `fk_customer_id1` FOREIGN KEY (customer_id) REFERENCES customer (customer_id) ON DELETE RESTRICT ON UPDATE CASCADE
+     #꼭 다시 고쳐야 한다~~~`************************************
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 set foreign_key_checks=0;

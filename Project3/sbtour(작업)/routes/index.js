@@ -81,10 +81,26 @@ router.get('/packages/:name', function(req, res, next) {
 
 	if (isKorea === 'korea'){
 		var Korea = "대한민국";
+	}
+	else if(isKorea === 'sa' ){
+		var Korea = "동남아"; //ifelse 로 예외처리
+	}
+	else if(isKorea === 'china' ){
+		var Korea = "중국"; //ifelse 로 예외처리
 	} 
-	else{
+	else if(isKorea === 'japan' ){
 		var Korea = "일본"; //ifelse 로 예외처리
 	} 
+	else if(isKorea === 'europe' ){
+		var Korea = "유럽"; //ifelse 로 예외처리
+	} 
+	else if(isKorea === 'hawaii' ){
+		var Korea = "미주"; //ifelse 로 예외처리
+	} 
+	else if(isKorea === 'guam' ){
+		var Korea = "남태평양"; //ifelse 로 예외처리
+	} 
+ 
 
 	pool.getConnection(function (err,connection){
 		if(err) return res.sendStatus(400);
@@ -94,13 +110,14 @@ router.get('/packages/:name', function(req, res, next) {
 
 			console.log("isKorea : "+JSON.stringify(Korea));
 			console.log("rows : "+JSON.stringify(rows[0]));
-			res.render('packages', { title: 'korea package', rows: rows });
+			res.render('packages', { title: 'packages', rows: rows });
 			connection.release();
 		});
 	});
 });
 
-/**/
+/*index에서 날짜데이터 받고 ejs로 건내줌?
+여기선 정렬기능 넣지 말*/
 router.get('/packages_search', function(req,res,next){
 	var city = req.query.city_name;
 	
@@ -112,11 +129,139 @@ router.get('/packages_search', function(req,res,next){
 			console.log("city : "+JSON.stringify(city));
 			console.log("rows : "+JSON.stringify(rows));
 
-			res.render('packages_search', { title: 'korea package', rows: rows });
+			res.render('packages_search', { title: 'packages', rows: rows });
 			connection.release();
 		});
 	});
 });
+
+router.get('/packages_sort/:city', function(req,res,next){
+	var city = req.params.city;
+	var sort = req.query.sort;
+	var sqlForSelectList;
+	if(sort === 'lowprice')
+	{
+		sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where country_id in (select country_id from country where country_category in (select country_category from country where country_id in (select country_id from tour where tour_id = ?) ))) order by package_cost" ;
+	}
+	else if(sort === 'highprice')
+	{
+		sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where country_id in (select country_id from country where country_category in (select country_category from country where country_id in (select country_id from tour where tour_id = ?) ))) order by package_cost DESC" ;
+	}
+	else if(sort === 'hit'){
+		sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where country_id in (select country_id from country where country_category in (select country_category from country where country_id in (select country_id from tour where tour_id = ?) ))) order by package_hit" ;
+	}
+	else if(sort === 'named'){
+		sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where country_id in (select country_id from country where country_category in (select country_category from country where country_id in (select country_id from tour where tour_id = ?) ))) order by package_id" ;
+	}
+	pool.getConnection(function (err,connection){
+		if(err) return res.sendStatus(400);
+		connection.query(sqlForSelectList,[city], function (err,rows){
+			if(err) console.error("err : " + err);
+			console.log("sort : "+JSON.stringify(sort));
+			console.log("rows : "+JSON.stringify(rows));
+			res.render('packages', { title: 'packages', rows: rows });
+			connection.release();
+		});
+	});
+});
+//-------------------------나래부분--------------------------
+router.get('/board', function(req, res, next) {
+	var category = req.query.id;
+	if(category === '1'){
+		var Korea = "대한민국";
+	}
+	else if (category === '2'){
+		var Korea = "대한민국";
+	}
+	else if(category === '3' ){
+		var Korea = "동남아"; //ifelse 로 예외처리
+	}
+	else if(category === '4' ){
+		var Korea = "중국"; //ifelse 로 예외처리
+	} 
+	else if(category === '5' ){
+		var Korea = "일본"; //ifelse 로 예외처리
+	} 
+	else if(category === '6' ){
+		var Korea = "유럽"; //ifelse 로 예외처리
+	} 
+	else if(category === '7' ){
+		var Korea = "미주"; //ifelse 로 예외처리
+	} 
+	else if(category === '8' ){
+		var Korea = "남태평양"; //ifelse 로 예외처리
+	}
+	var sql = "select * from board where package_id in (select package_id from package where tour_id in (select tour_id from tour where country_id in (select country_id from country where country_category = ?)))";
+	pool.getConnection(function(err,connection){
+			if(err) return res.sendStatus(400);
+	connection.query(sql, [Korea], function(err,rows){
+		if(err){connection.release();
+			return res.send(400,'cound not get a connection');
+		} 
+		console.log("err: "+JSON.stringify(category));
+		console.log("rows: "+JSON.stringify(rows));
+		res.render('board', { title: 'board', rows: rows});
+		connection.release();
+		});
+	});
+});
+
+router.get('/insertcon', function(req, res, next) {
+	pool.getConnection(function (err,connection){
+		if(err) return res.sendStatus(400);
+		connection.query('SELECT * FROM package', function (err,rows){
+			if(err){// packate 정보에 대한 data select
+				connection.release();
+				return res.send(400,'couldnt get a connection');
+			} 
+			console.error("err: "+err);
+			console.log("rows : "+JSON.stringify(rows));
+
+			res.render('insertcon', { title: 'insertcon', rows: rows });
+			connection.release();
+		});
+	});
+});
+
+router.post('/insertcon', function(req, res, next) {
+	var customer_id = "custromer_1";
+	var package_id = req.body.package;
+	var board_title = req.body.title;
+	var board_start = req.body.start;
+	var board_arrive = req.body.arrive;
+	var board_content = req.body.content;
+	var board_img = "busan.jpg";
+	var board_rating = req.body.star;
+	var board_hit = "10";
+	var datas = [customer_id,package_id,board_title,board_start,board_arrive,board_content,board_img,board_rating,board_hit];
+	pool.getConnection(function(err,connection){
+		var sqlForInsertBoard = "insert into board(customer_id,package_id,board_title,board_start,board_arrive,board_content,board_img,board_rating,board_hit) values(?,?,?,?,?,?,?,?,?)";
+		connection.query(sqlForInsertBoard,datas,function(err,rows){
+			if(err)console.error("err :"+err);
+			console.log("rows" + JSON.stringify(rows));
+			res.redirect('/board');
+			connection.release();
+		});
+	});
+});
+
+router.get('/contents/:idx', function(req, res, next) {
+	var idx = req.params.idx;
+	pool.getConnection(function (err,connection){
+		if(err) return res.sendStatus(400);
+		connection.query('SELECT * FROM board where board_id=?',[idx],function(err,rows){
+			if(err){connection.release();
+			return res.send(400,'cound not get a connection');
+		} 
+		console.error("err: "+err);
+		console.log("rows: "+JSON.stringify(rows));
+		res.render('contents', { title: 'contents', rows: rows});
+		connection.release();
+		});
+	});
+});
+//-------------------------나래부분끝---------------------------
+
 
 //-------------------------------------------------------------
 
