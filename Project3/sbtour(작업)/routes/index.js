@@ -10,7 +10,8 @@ var pool = mysql.createPool({
 	host : '127.0.0.1',
 	user : 'root',
 	database: 'sbtour',
-	password: 'toqlc123'
+	password: 'gusdn0',
+	multipleStatements: true
 });
 
 
@@ -233,7 +234,7 @@ router.get('/insertcon', function(req, res, next) {
 });
 
 router.post('/insertcon', function(req, res, next) {
-	var customer_id = "custromer_1";
+	var customer_id = req.user.user_id;
 	var package_id = req.body.package;
 	var board_title = req.body.title;
 	var board_start = req.body.start;
@@ -384,8 +385,9 @@ router.post('/joinForm', function(req, res, next) {
 /* GET 로그인 */
 router.get('/login', function(req, res, next) {
     if (req.user != undefined) { //로그인이 된 경우
-        console.log('이미 로그인');
-        res.redirect('/');
+		
+		console.log('이미 로그인');
+		res.send('<script type="text/javascript">alert("이미 로그인 되었습니다.");location.href="/";</script>');
     }
     res.render('login', { title: 'login' });
 });
@@ -393,17 +395,18 @@ router.get('/login', function(req, res, next) {
 /* POST 로그인 */
 router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), function(req, res) {
     if (req.user != undefined) //로그인이 된 경우
-        console.log(req.user.user_id, req.user.user_name, req.user.user_type); //세션 출력
-    res.redirect('/login');
+		console.log(req.user.user_id, req.user.user_name, req.user.user_type); //세션 출력
+		res.send('<script type="text/javascript">alert("로그인 되었습니다.");location.href="/";</script>');
+    res.redirect('/');
 })
 
 /* GET 로그아웃 */
 router.get('/logout', function(req, res) {
     if (req.user != undefined) { //로그인된 경우에만
-        console.log('로그아웃');
-        req.logout();
+		console.log('로그아웃');
+        req.logout(); 
+		res.send('<script type="text/javascript">alert("로그아웃 되었습니다");location.href="/";</script>');
     }
-    res.redirect('/');
 });
 
 /* GET 회원가입 */
@@ -414,53 +417,68 @@ router.get('/joinForm', isAuthenticated, function(req, res, next) { //로그인�
 
 
 //------------------------정현우부분-------------------------
-router.post('/product', function (req, res, next) {
-	
-	var id = req.body.customer_id;
-	var name = req.body.customer_name;
-	var phone = req.body.customer_phone;
-	var email = req.body.customer_email;
-	var type = req.body.user_type;
-	console.log(type);
-
-	var datas = [id, passwd, name, phone, email, account];
-	console.log(datas);
-
-	pool.getConnection(function (err, connection) {
-		var sqlForInsertBoard = "insert into customer(customer_id, customer_passwd, customer_name, customer_phone, customer_email, customer_account) values(?,?,?,?,?,?)";
-		connection.query(sqlForInsertBoard, datas, function (err, rows) {
-			if (err) console.error("err: " + err);
-
-			console.log("rows: " + JSON.stringify(rows));
-
-			res.redirect('/');
-			connection.release();
-		});
-	});
-});
-
 router.get('/product/:package_id', function (req, res, next) {
 	var package = req.params.package_id;
-	pool.getConnection(function (err, connection) {
-		if (err) return res.sendStatus(400);
-		var sqlForSelectList1 = "select * from package where package_id = ?;"
-		var sqlForSelectList2 = "select * from seller where seller_id in (select seller_id from package where package_id = ? );"
-		connection.query(sqlForSelectList1, [package], function (err, rows) {
-			if (err) console.error("err1 : " + err);
-			connection.query(sqlForSelectList2, [package], function (err, seller) {
+	console.log(req.user);
+	if (req.user == undefined) {
+		res.send('<script type="text/javascript">alert("로그인이 필요합니다!!!!!!!");location.href="/login";</script>');
+	}
+	else{
+		var customer_id = req.user.user_id;
+		pool.getConnection(function (err, connection) {
+			if (err) return res.sendStatus(400);
+			var sqlForSelectList = "select * from package where package_id = ?;" +
+				"select * from customer where customer_id = ?;" +
+				"select * from seller where seller_id in (select seller_id from package where package_id = ? );";
+
+			connection.query(sqlForSelectList, [package, customer_id, package], function (err, rows) {
 				if (err) console.error("err1 : " + err);
 				console.log("package_id : " + JSON.stringify(package));
 				console.log("rows[0] : " + JSON.stringify(rows[0]));
 				console.log("rows[1] : " + JSON.stringify(rows[1]));
+				console.log("rows[2] : " + JSON.stringify(rows[2]));
 				res.render('product', {
 					title: 'package_id',
-					rows: rows,
-					seller: seller
+					rows: rows[0],
+					customer: rows[1],
+					seller: rows[2]
 				});
 				connection.release();
 			});
-		});
 
+		});
+	}
+});
+
+router.post('/product/:package_id', function (req, res, next) {
+	var customer_id = req.user.user_id;
+	var package_id = req.body.package_id;
+	var pay_id = Math.floor(Math.random() * 32767);//small int
+	var reserve_id = Math.floor(Math.random() * 32767); //small int
+	var reserve_date = Date.now();
+	var reserve_start = req.body.reserve_start;
+	var reserve_arrive = req.body.reserve_arrive;
+	var reserve_people = req.body.validity;
+	var reserve_price = req.body.reserve_price;
+	var reserve_status  = 0;
+
+	var data1 = [pay_id, reserve_id];
+	var data2 = [customer_id, package_id, pay_id, reserve_date, reserve_start, reserve_arrive, reserve_people, reserve_price, reserve_status];
+	console.log(data1);
+	console.log(data2);
+	
+
+	pool.getConnection(function (err, connection) {
+		var sqlForInsertBoard1 = "INSERT INTO payment(pay_id, pay_option, pay_status, reserve_id) values(?,0,0,?)";
+		var sqlForInsertBoard2 = "INSERT into reservation(customer_id,package_id,pay_id,reserve_date,reserve_start,reserve_arrive,reserve_people,reserve_price,reserve_status) values(?,?,?,?,?,?,?,?,?)";
+		connection.query(sqlForInsertBoard1, data1, function (err, rows1) {
+			if (err) console.error("err: " + err);
+				connection.query(sqlForInsertBoard2, data2, function (err, rows2) {
+					if (err) console.error("err: " + err);
+					res.redirect('/reservation/'+ customer_id);
+					connection.release();
+				});
+		});
 	});
 });
 
