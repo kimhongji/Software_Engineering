@@ -1,0 +1,64 @@
+<style>
+        #myMap {
+            height: 200px;
+            width: 300px;
+        }
+    </style>
+    <footer class="footer-area section-gap">
+        <div class="container">
+    
+            <div class="row">
+                <h5>Connect us</h5>
+    
+                <script>
+                    function initMap() {
+                        var mapLocation = {
+                            lat: 37.619588,
+                            lng: 127.059909
+                        };
+                        var myMap = new google.maps.Map(document.getElementById('myMap'), {
+                            zoom: 16,
+                            center: mapLocation
+                        });
+                        var marker = new google.maps.Marker({
+                            position: mapLocation,
+                            map: myMap
+                        });
+                    }
+                </script>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArIQWRLFnRHo9sGVANT4f0zMHXO3Ma9cE&callback=initMap">
+                </script>
+                <div id="myMap"></div>
+            </div>
+    
+    
+            <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                <p class="col-lg-8 col-sm-12 footer-text m-0">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script> All rights reserved | This template is made with
+                    <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <br> Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script> All rights reserved | This template is made with by Kwangwoon Software Engineering TEAM</a>
+                    <div class="col-lg-4 col-sm-12 footer-social">
+                        <a href="http://www.facebook.com">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </footer>

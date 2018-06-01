@@ -1,163 +1,189 @@
 <!DOCTYPE html>
-<html>
+<html lang="zxx" class="no-js">
+
 <head>
-   <title><%= title %></title>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="colorlib">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>Travel</title>
 
-
-   <meta charset='utf-8'>
-   <link rel='stylesheet' href='/stylesheets/style.css' />
-   <script src="/javascripts/jquery-3.3.1.min.js"></script>
-   <script>
-   $(function(){
-
-      $("btnJoin").click(
-         function(){
-
-            if($("#id").val() == "")
-            {
-               alert("아이디를 꼭 입력 하세요");
-               $("#id").focus();
-               return ;
-            }
-            if($("#passwd").val() == "")
-            {
-               alert("비밀번호를 꼭 입력 하세요");
-               $("#passwd").focus();
-               return ;
-            }
-            if($("#name").val() == "")
-            {
-               alert("이름을 꼭 입력 하세요");
-               $("#name").focus();
-               return ;
-            }
-            if($("#email").val()=="")
-            {
-               alert("이메일을 꼭 입력 하세요");
-               $("#email").focus();
-               return ;
-            }
-            if($("#tel2").val() == "")
-            {
-               alert("전화번호 두번째 자리를 확인해 주세요");
-               $("#tel2").focus();
-               return ;
-            }
-            if($("#tel3").val() == "")
-            {
-               alert("전화번호 세번째 자리를 확인해 주세요");
-               $("#tel3").focus();
-               return ;
-            }
-
-            val tel = $("#tel1").val() + '-' + $("#tel2").val() + '-' + $("#tel3").val();
-            $("#tel").val(tel);
-
-            if($("#address").val() == "")
-            {
-               alert("주소를 꼭 입력해 주세요");
-               $("#address").focus();
-               return ;
-            }
-
-            if($("#birth").val()== "")
-            {
-               alert("생일을 꼭 입력해 주세요");
-               $("#birth").focus();
-               return ;
-            }
-            if($("#birth").val().length != 8)
-            {
-               alert("생일은 8글자로 입력해 주세요");
-               $("#birth").focus();
-               return ;
-            }
-            if(isNaN($("#birth").val()))
-            {
-               alert("생일은 숫자만 입력해 주세요");
-               $("#birth").focus();
-               return ;
-            }
-            $("#joinForm").submit();
-
-            }
-            );
-
-});
-</script>
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+	<!--
+			CSS
+			============================================= -->
+	<link rel="stylesheet" href="css/linearicons.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+	<link rel="stylesheet" href="css/nice-select.css">
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/owl.carousel.css">
+	<link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-   <h1><%= title %></h1>
-   <form id="joinForm" action="/join" method="post">
-      <table width="400" border="1">
-         <tr>
-            <th>아이디</th>
-            <td><input type="text" name="id" id="id" size="12" maxLength="12"></td>
-         </tr>
-         <tr>
-            <th>비밀번호</th>
-            <td><input type="password" name="passwd" id="passwd" size="12" maxLength="12"></td>
-         </tr>
-         <tr>
-            <th>이름</th>
-            <td><input type="text" name="name" id="name" size="10" maxLength="10"></td>
-         </tr>
-         <tr>
-            <th>이메일</th>
-            <td><input type="email" name="email" id="email" size="30" maxLength="50"></td>
-         </tr>
-         <tr>
-            <th>전화번호</th>
-            <td>
-               <input type="hidden" name="tel" id="tel">
-               <select name="tel1" id="tel1">
-                  <option value="010">010</option>
-                  <option value="011">011</option>
-                  <option value="016">016</option>
-                  <option value="017">017</option>
-                  <option value="018">018</option>
-                  <option value="019">019</option>
-               </select>
-               -
-               <input type="text" name="tel2" id="tel2" size="4" maxLength="4">
-               -
-               <input type="text" name="tel3" id="tel3" size="4" maxLength="4">
-            </td>
-         </tr>
-         <tr>
-            <th>주소</th>
-            <td><input type="text" id="address" size="30" maxLength="50"></td>
-         </tr>
-         <tr>
-            <th>직업</th>
-            <td><select name="job" id="job">
-               <option value="학생">학생</option>
-               <option value="직장인">직장인</option>
-               <option value="주부">주부</option>
-            </select></td>
-         </tr>
-         <tr>
-            <th>성별</th>
-            <td>
-               <input type="radio" name="gender" value="남" checked="checked">남
-               <input type="radio" name="gender" value="여">여
-            </td>
-         </tr>
-         <tr>
-            <th>생일</th>
-            <td><input type="text" name="birth" id="birth" size="8" maxLength="8">*YYYYMDD</td>
-         </tr>
-         <tr>
-            <td colspan="2">
-               <button type="submit">가입</button>
-               <button type="reset">취소</button>
-               <!--<input type="reset" name="cancel" value="취소"> -->
-            </td>
-         </tr>
-      </table>
-   </form>
-
-
+    <% include header.html %>
+    <!-- #header -->
+    <!-- start banner Area -->
+     <!-- start banner Area -->
+     <section class="banner-area relative">
+        <div class="overlay overlay-bg"></div>
+        <div class="container">
+            <div class="row fullscreen align-items-center justify-content-between">
+                <div class="col-lg-5 col-md-6 banner-left">
+                    <h1 class="text-white">회원가입</h1>
+                    <p class="text-white">
+                        회원이 되면 더 많을 기능을 이용할 수 있습니다.
+                    </p>
+                </div>
+                <div class="col-lg-5 col-md-6 banner-right">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#join_customer" id="customer-tab" data-toggle="tab" role="tab" aria-controls="customer" aria-selected="true">소비자</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#join_seller" id="seller-tab" data-toggle="tab" role="tab" aria-controls="seller" aria-selected="false">판매자</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <!-- 소비자 회원가입창 -->
+                        <div class="tab-pane fade show active" id="join_customer" role="tabpanel" aria-labelledby="join_customer">
+                            <form class="form-wrap" method="post" onsubmit="return onWriteSubmit()" action="/joinForm">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <input type="text" class="form-control" id="user_id" name="user_id" placeholder="ID" required/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="password" class="form-control" id="user_passwd" name="user_passwd" placeholder="Password" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Name" required/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="user_phone" name="user_phone" placeholder="Phone-number" required/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="user_email" name="user_email" placeholder="E-mail" required/>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <select id="user_account1" name="user_account1" class="form-control-lg form-control">
+                                            <option selected>국민</option>
+                                            <option>신한</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input type="text" class="form-control-lg form-control" id="user_account2" name="user_account2" placeholder="Account" required/>
+                                    </div>
+                                </div>
+                                <div class="form-check form-check-inline" style="display: none">
+                                    <input class="form-check-input" type="radio" id="user_type" name="user_type" value="customer" checked>
+                                </div>
+                                <button class="primary-btn" type="submit" id="customer_button">Sign in</button>
+                            </form>
+                        </div>
+                        <!-- 판매자 회원가입창 -->
+                        <div class="tab-pane fade" id="join_seller" role="tabpanel" aria-labelledby="join_seller">
+                            <form class="form-wrap" method="post" onsubmit="return onWriteSubmit()" action="/joinForm">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <input type="text" class="form-control" id="user_id" name="user_id" placeholder="ID" required/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="password" class="form-control" id="user_passwd" name="user_passwd" placeholder="Password" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Name" required/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="user_phone" name="user_phone" placeholder="Phone-number" required/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="user_email" name="user_email" placeholder="E-mail" required/>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <select id="user_account1" name="user_account1" class="form-control-lg form-control">
+                                            <option selected>국민</option>
+                                            <option>신한</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input type="text" class="form-control-lg form-control" id="user_account2" name="user_account2" placeholder="Account" required/>
+                                    </div>
+                                </div>
+                                <div class="form-check form-check-inline" style="display: none">
+                                    <input class="form-check-input" type="radio" id="user_type" name="user_type" value="seller" checked>
+                                </div>
+                                <button class="primary-btn" type="submit" id="seller_button">Sign in</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End banner Area -->
+    <!-- start footer Area -->
+    <footer class="footer-area section-gap">
+        <div class="container">
+            <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                <p class="col-lg-8 col-sm-12 footer-text m-0">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>
+                    document.write(new Date().getFullYear());
+                    </script> All rights reserved | This template is made with
+                    <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <br> Copyright &copy;
+                    <script>
+                    document.write(new Date().getFullYear());
+                    </script> All rights reserved | This template is made with by Kwangwoon Software Engineering TEAM</a>
+                    <div class="col-lg-4 col-sm-12 footer-social">
+                        <a href="http://www.facebook.com">
+                     <i class="fa fa-facebook"></i>
+                  </a>
+                        <a href="#">
+                     <i class="fa fa-twitter"></i>
+                  </a>
+                        <a href="#">
+                     <i class="fa fa-dribbble"></i>
+                  </a>
+                        <a href="#">
+                     <i class="fa fa-behance"></i>
+                  </a>
+                    </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End footer Area -->
+    <script src="js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/easing.min.js"></script>
+    <script src="js/hoverIntent.js"></script>
+    <script src="js/superfish.min.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/mail-script.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>

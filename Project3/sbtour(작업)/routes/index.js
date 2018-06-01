@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+var passport = require('passport'); //login
+var session = require('express-session'); //login
+var LocalStrategy = require('passport-local').Strategy; //login
+var bcrypt = require('bcrypt');
 var pool = mysql.createPool({
 	connectionLimit: 5,
 	host : '127.0.0.1',
@@ -8,6 +12,7 @@ var pool = mysql.createPool({
 	database: 'sbtour',
 	password: 'toqlc123'
 });
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -74,6 +79,9 @@ router.get('/insurance', function(req, res, next) {
 	res.render('insurance',{title: "insurance"});
 });
 
+
+
+//-----------------------홍지부분---------------------------
 
 /* GET */ 
 router.get('/packages/:name', function(req, res, next) {
@@ -164,6 +172,7 @@ router.get('/packages_sort/:city', function(req,res,next){
 		});
 	});
 });
+//-----------------------홍지부분 끝 ---------------------------
 //-------------------------나래부분--------------------------
 router.get('/board', function(req, res, next) {
 	var category = req.query.id;
@@ -260,10 +269,218 @@ router.get('/contents/:idx', function(req, res, next) {
 		});
 	});
 });
-//-------------------------나래부분끝---------------------------
+//-----------------------나래부분끝---------------------------
 
 
-//-------------------------------------------------------------
+//------------------------지현이부분--------------------------
+/*로그인 성공시 사용자 정보를 Session에 저장한다*/
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
 
+/*인증 후, 페이지 접근시 마다 사용자 정보를 Session에서 읽어옴.*/
+passport.deserializeUser(function(user, done) {
+    done(null, user); // 여기의 user가 req.user가 됨
+});
+
+/*로그인된 유저 판단 로직*/
+var isAuthenticated = function(req, res, next) {
+    if (!req.isAuthenticated())
+        return next();
+    console.log('이미 로그인');
+    res.redirect('/');
+};
+
+
+/* 로그인 */
+passport.use(new LocalStrategy({
+    usernameField: 'user_id',
+    passwordField: 'user_passwd',
+    passReqToCallback: true
+}, function(req, user_id, user_passwd, done) {
+    console.log('type: ' + req.body.user_type);
+    pool.getConnection(function(err, connection) {
+        if (err) return res.sendStatus(400);
+
+        if (req.body.user_type == 'customer') { //소비자
+            var sqlForLogin = "SELECT * FROM customer WHERE customer_id = ?";
+        } else { //판매자
+            var sqlForLogin = "SELECT * FROM seller WHERE seller_id = ?";
+        }
+
+        connection.query(sqlForLogin, user_id, function(err, result) {
+            if (err) {
+                console.log('err :' + err);
+                return done(false, null);
+            } else {
+                if (result.length === 0) {
+                    console.log('해당 유저가 없습니다');
+                    return done(false, null, req.flash('login_msg', '아이디가 존재하지 않습니다.'));
+                } else {
+                    if (req.body.user_type == 'customer') { //소비자 
+                        if (user_passwd != result[0].customer_passwd) {
+                            console.log('패스워드가 일치하지 않습니다', req.flash('login_msg', '패스워드가 일치하지 않습니다'));
+                            return done(false, null);
+                        } else {
+                            console.log('로그인 성공');
+
+                            return done(null, {
+                                user_id: result[0].customer_id,
+                                user_name: result[0].customer_name,
+                                user_type: req.body.user_type
+                            });
+                        }
+                    } else {
+                        if (user_passwd != result[0].seller_passwd) { //판매자
+                            console.log('패스워드가 일치하지 않습니다', req.flash('login_msg', '패스워드가 일치하지 않습니다'));
+                            return done(false, null);
+                        } else {
+                            console.log('로그인 성공');
+
+                            return done(null, {
+                                user_id: result[0].seller_id,
+                                user_name: result[0].seller_name,
+                                user_type: req.body.user_type
+                            });
+                        }
+                    }
+                }
+            }
+        })
+    })
+}));
+
+/* POST 회원가입 */
+router.post('/joinForm', function(req, res, next) {
+    var id = req.body.user_id;
+    var passwd = req.body.user_passwd;
+    var name = req.body.user_name;
+    var phone = req.body.user_phone;
+    var email = req.body.user_email;
+    var account = req.body.user_account1 + " " + req.body.user_account2;
+
+    var datas = [id, passwd, name, phone, email, account];
+    console.log(datas);
+
+    pool.getConnection(function(err, connection) {
+
+        if (req.body.user_type == 'customer') { //소비자
+            var sqlForInsertBoard = "insert into customer(customer_id, customer_passwd, customer_name, customer_phone, customer_email, customer_account) values(?,?,?,?,?,?)";
+        } else { //판매자
+            var sqlForInsertBoard = "insert into seller(seller_id, seller_passwd, seller_name, seller_phone, seller_email, seller_account) values(?,?,?,?,?,?)";
+        }
+
+        connection.query(sqlForInsertBoard, datas, function(err, rows) {
+            if (err) console.error("err: " + err);
+            console.log(req.body.user_type + "회원가입 완료");
+            console.log("rows: " + JSON.stringify(rows));
+
+            res.redirect('/');
+            connection.release();
+        });
+    });
+});
+
+/* GET 로그인 */
+router.get('/login', function(req, res, next) {
+    if (req.user != undefined) { //로그인이 된 경우
+        console.log('이미 로그인');
+        res.redirect('/');
+    }
+    res.render('login', { title: 'login' });
+});
+
+/* POST 로그인 */
+router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), function(req, res) {
+    if (req.user != undefined) //로그인이 된 경우
+        console.log(req.user.user_id, req.user.user_name, req.user.user_type); //세션 출력
+    res.redirect('/login');
+})
+
+/* GET 로그아웃 */
+router.get('/logout', function(req, res) {
+    if (req.user != undefined) { //로그인된 경우에만
+        console.log('로그아웃');
+        req.logout();
+    }
+    res.redirect('/');
+});
+
+/* GET 회원가입 */
+router.get('/joinForm', isAuthenticated, function(req, res, next) { //로그인한 상태에서는 홈으로 바로 이동
+    res.render('joinForm', { title: 'Join Form' });
+});
+//------------------------지현이부분 끝--------------------------
+
+
+//------------------------정현우부분-------------------------
+router.post('/product', function (req, res, next) {
+	
+	var id = req.body.customer_id;
+	var name = req.body.customer_name;
+	var phone = req.body.customer_phone;
+	var email = req.body.customer_email;
+	var type = req.body.user_type;
+	console.log(type);
+
+	var datas = [id, passwd, name, phone, email, account];
+	console.log(datas);
+
+	pool.getConnection(function (err, connection) {
+		var sqlForInsertBoard = "insert into customer(customer_id, customer_passwd, customer_name, customer_phone, customer_email, customer_account) values(?,?,?,?,?,?)";
+		connection.query(sqlForInsertBoard, datas, function (err, rows) {
+			if (err) console.error("err: " + err);
+
+			console.log("rows: " + JSON.stringify(rows));
+
+			res.redirect('/');
+			connection.release();
+		});
+	});
+});
+
+router.get('/product/:package_id', function (req, res, next) {
+	var package = req.params.package_id;
+	pool.getConnection(function (err, connection) {
+		if (err) return res.sendStatus(400);
+		var sqlForSelectList1 = "select * from package where package_id = ?;"
+		var sqlForSelectList2 = "select * from seller where seller_id in (select seller_id from package where package_id = ? );"
+		connection.query(sqlForSelectList1, [package], function (err, rows) {
+			if (err) console.error("err1 : " + err);
+			connection.query(sqlForSelectList2, [package], function (err, seller) {
+				if (err) console.error("err1 : " + err);
+				console.log("package_id : " + JSON.stringify(package));
+				console.log("rows[0] : " + JSON.stringify(rows[0]));
+				console.log("rows[1] : " + JSON.stringify(rows[1]));
+				res.render('product', {
+					title: 'package_id',
+					rows: rows,
+					seller: seller
+				});
+				connection.release();
+			});
+		});
+
+	});
+});
+
+router.get('/reservation/:user_id', function (req, res, next) {
+	var user_id = req.user.user_id;
+	var customer_id = req.params.customer_id;
+
+	pool.getConnection(function (err, connection) {
+		if (err) return res.sendStatus(400);
+		var sqlForSelectList1 = "select * from customer where customer_id = ?;"
+		connection.query(sqlForSelectList1, [user_id], function (err, rows) {
+			if (err) console.error("err1 : " + err);
+				console.log("rows[0] : " + JSON.stringify(rows[0]));
+				res.render('reservation', { title: 'package_id', rows: rows});
+				connection.release();
+		});
+
+	});
+});
+
+//------------------------정현우 부분 끝--------------------------
 //router.post()
 module.exports = router;
