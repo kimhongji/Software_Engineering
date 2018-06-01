@@ -222,10 +222,10 @@
 							</div>
 						</div>
 						<div class="button-group-area mt-10">
-								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=lowprice" class="genric-btn primary-border radius" id="lowprice" name="sort">낮은가격순</a>
-								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=highprice" class="genric-btn success-border radius" id="highprice" name="sort">높은가격순</a>
-								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=hit" class="genric-btn info-border radius" id="hit" name="sort">인기순</a>
-								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=named" class="genric-btn warning-border radius" id="named" name="sort">이름순</a>
+								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=lowprice#package_info" class="genric-btn primary-border radius" id="lowprice" name="sort">낮은가격순</a>
+								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=highprice#package_info" class="genric-btn success-border radius" id="highprice" name="sort">높은가격순</a>
+								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=hit#package_info" class="genric-btn info-border radius" id="hit" name="sort">인기순</a>
+								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=named#package_info" class="genric-btn warning-border radius" id="named" name="sort">이름순</a>
 								<a href="/packages_sort/ex2" class="genric-btn danger-border radius" id="ex2" name="sort">필터</a>
 						</div>									
 					<div class="row">
@@ -258,7 +258,7 @@
 										</li>
 										<li class="d-flex justify-content-between align-items-center">
 											<span>최대인원</span>
-											<span><%=oneItem.package_Validity%>명</span>
+											<span><%=oneItem.package_validity%>명</span>
 										</li>
 										<li class="d-flex justify-content-between align-items-center">
 											<span>Price per person</span>
