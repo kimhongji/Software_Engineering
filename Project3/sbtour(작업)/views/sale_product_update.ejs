@@ -50,8 +50,8 @@
                 <div class="col-lg-5 col-md-6 banner-right">
                     <div class="tab-content" id="myTabContent">
                         <!-- 판매자 등록창 -->
-                        <div class="tab-pane fade show active" id="join_customer" role="tabpanel" aria-labelledby="join_customer" >
-                            <form class="form-wrap" method="post" onsubmit="return onWriteSubmit()" action="/sale_product" enctype="multipart/form-data" >
+                        <div class="tab-pane fade show active" id="join_customer" role="tabpanel" aria-labelledby="join_customer">
+                            <form class="form-wrap" method="post" onsubmit="return onWriteSubmit()" action="/sale_product">
                                 <input type="hidden">
                                 <div class="input-group-icon mt-10">
                                     <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
@@ -86,7 +86,6 @@
                                 <input type="text" class="form-control" id="package_id"   name="package_id" placeholder="패키지 id" required/>
                                 <input type="text" class="form-control" id="package_name"   name="package_name" placeholder="패키지 Name" required/>
                                 <input type="text" class="form-control" id="package_explan" name="package_explan" placeholder="패키지 설명" required/>
-                                <input type="file" class="form-control" id='img' name="img" placeholder="첨부 이미지" required/>
                                 <input type="text" class="form-control date-picker" format="yyyy/mm/dd" name="start" placeholder="Start-date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
                                 <input type="text" class="form-control date-picker" name="end" placeholder="end-date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
                                 <input type="text" class="form-control" id="package_term" name="package_term" placeholder="기간(몇박몇일)" required/>
@@ -105,7 +104,38 @@
     </section>
     <!-- End banner Area -->
     <!-- start footer Area -->
-    <% include footer.html %>
+    <footer class="footer-area section-gap">
+        <div class="container">
+            <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                <p class="col-lg-8 col-sm-12 footer-text m-0">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>
+                    document.write(new Date().getFullYear());
+                    </script> All rights reserved | This template is made with
+                    <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <br> Copyright &copy;
+                    <script>
+                    document.write(new Date().getFullYear());
+                    </script> All rights reserved | This template is made with by Kwangwoon Software Engineering TEAM</a>
+                    <div class="col-lg-4 col-sm-12 footer-social">
+                        <a href="http://www.facebook.com">
+                     <i class="fa fa-facebook"></i>
+                  </a>
+                        <a href="#">
+                     <i class="fa fa-twitter"></i>
+                  </a>
+                        <a href="#">
+                     <i class="fa fa-dribbble"></i>
+                  </a>
+                        <a href="#">
+                     <i class="fa fa-behance"></i>
+                  </a>
+                    </div>
+            </div>
+        </div>
+    </footer>
     <!-- End footer Area -->
     <script src="js/vendor/jquery-2.2.4.min.js"></script>
     <script src="js/popper.min.js"></script>

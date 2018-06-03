@@ -15,6 +15,8 @@ var pool = mysql.createPool({
 });
 
 /*====image upload 하기 위해 필요한 모듈=====*/
+var fs = require('fs');
+
 let multer = require("multer");
 
 let upload = multer({
@@ -22,7 +24,7 @@ let upload = multer({
 });
 function imageUpload(files) {
     fs.readFile(files.path, function (err, data) {
-        var filePath = __dirname + '\\/public/img/packages/\\' + files.originalname +'.jpg';
+        var filePath = __dirname + '\\../public/img/packages/\\' + files.originalname;
         fs.writeFile(filePath, data, function (error) {
             if (error) {
                 throw error;
@@ -232,7 +234,7 @@ router.get('/packages_sort/:city', function(req,res,next){
 			if(err) console.error("err : " + err);
 			console.log("sort : "+JSON.stringify(sort));
 			console.log("rows : "+JSON.stringify(rows));
-			res.render('packages', { title: 'packages', rows: rows });
+			res.render('packages', { title: 'packages', rows: rows, login:login });
 			connection.release();
 		});
 	});
@@ -319,25 +321,41 @@ router.get('/insertcon', function(req, res, next) {
 	});
 });
 
-router.post('/insertcon', function(req, res, next) {
-	var customer_id = "custromer_1";
+router.post('/insertcon',  upload.array('img'),  function(req, res, next) {
+	var customer_id = req.user.user_id;
 	var package_id = req.body.package;
 	var board_title = req.body.title;
 	var board_start = req.body.start;
 	var board_arrive = req.body.arrive;
 	var board_content = req.body.content;
-	var board_img = "busan.jpg";
+	var board_img = req.body.img;
 	var board_rating = req.body.star;
 	var board_hit = "10";
 	var datas = [customer_id,package_id,board_title,board_start,board_arrive,board_content,board_img,board_rating,board_hit];
+
+	var filelength = req.files.length;
+	var uploadcnt = 0;
+
+
 	pool.getConnection(function(err,connection){
 		var sqlForInsertBoard = "insert into board(customer_id,package_id,board_title,board_start,board_arrive,board_content,board_img,board_rating,board_hit) values(?,?,?,?,?,?,?,?,?)";
-		connection.query(sqlForInsertBoard,datas,function(err,rows){
-			if(err)console.error("err :"+err);
-			console.log("rows" + JSON.stringify(rows));
-			res.redirect('/board/0');
-			connection.release();
-		});
+		
+		for(var i = 0; i< filelength; i++){
+			console.log(filelength);
+			filename = imageUpload(req.files[i]);
+			uploadcnt +=1;
+			console.log("filename" + JSON.stringify(filename));
+			console.log("uploadcnt" + JSON.stringify(uploadcnt));
+			console.log("datas" + JSON.stringify(datas));
+			if(uploadcnt == filelength ){
+				connection.query(sqlForInsertBoard,[customer_id,package_id,board_title,board_start,board_arrive,board_content,filename,board_rating,board_hit],function(err,rows){
+				if(err)console.error("err :"+err);
+				console.log("rows" + JSON.stringify(rows));
+				res.redirect('/board/0');
+				connection.release();
+			});
+			}
+		}
 	});
 });
 
@@ -708,7 +726,7 @@ router.get('/sale_product', function(req, res, next) { //로그인한 상태에�
 });
 
 /* POST 판매등록 PACKAGE INSERT */
-router.post('/sale_product', function(req, res, next) {
+router.post('/sale_product', upload.array('img'), function(req, res, next) {
 	var user_id;
 	var type;
 	var render_;
@@ -722,7 +740,8 @@ router.post('/sale_product', function(req, res, next) {
 	var city_name = req.body.package;
 	var package_id = req.body.package_id;
     var package_name = req.body.package_name;
-    var package_explan = req.body.package_explan;
+	var package_explan = req.body.package_explan;
+	var package_img = req.body.img;
     var start = req.body.start;
     var end = req.body.end;
 	var package_term = req.body.package_term;
@@ -731,28 +750,41 @@ router.post('/sale_product', function(req, res, next) {
 	var package_closed = req.body.package_closed;
 
 	var data1 = [country_name, city_name] ;
-   console.log(data1);
-   
+	
+    var filelength = req.files.length;
+	var uploadcnt = 0;
 	
 	
     pool.getConnection(function(err, connection) {
 		var sqlforInsertTour = 
 					"select tour_id from tour where country_id in (select country_id from country where country_name = ? ) and  city_id in (select city_id from city where city_name=?) ORDER BY tour_id LIMIT 1";
 		 var sqlForInsertBoard = "insert into package(package_id, seller_id, tour_id, package_name, package_explanation, package_img ,package_start, package_arrive, package_term, package_validity, package_cost, package_closed, package_hit) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		connection.query(sqlforInsertTour,  data1 , function(err, tour_id) {
-			if (err) console.error("err: " + err);
-			console.log("tour_id: " + JSON.stringify(tour_id));
-			var datas2 = [package_id, user_id, tour_id[0].tour_id, package_name, package_explan, "busan.jpg" ,start, end, package_term, package_validity, package_cost, package_closed, '0'];
-			console.log("datas2: " + JSON.stringify(datas2));	
-			
-			connection.query(sqlForInsertBoard, datas2, function(err, rows) {
-      	      if (err) console.error("err: " + err);
-        	    console.log("rows: " + JSON.stringify(rows));
+		
+		
+		 for(var i = 0; i< filelength; i++){
+			console.log(filelength);
+			filename = imageUpload(req.files[i]);
+			uploadcnt +=1;
+			console.log("filename" + JSON.stringify(filename));
+			console.log("uploadcnt" + JSON.stringify(uploadcnt));
+		
+			if(uploadcnt == filelength ){
+				 connection.query(sqlforInsertTour,  data1 , function(err, tour_id) {
+				if (err) console.error("err: " + err);
+				console.log("tour_id: " + JSON.stringify(tour_id));
+				var datas2 = [package_id, user_id, tour_id[0].tour_id, package_name, package_explan, filename ,start, end, package_term, package_validity, package_cost, package_closed, '0'];
+				console.log("datas2: " + JSON.stringify(datas2));	
+					
+					connection.query(sqlForInsertBoard, datas2, function(err, rows) {
+      	    		if (err) console.error("err: " + err);
+        	   		 console.log("rows: " + JSON.stringify(rows));
 
-				res.redirect('/profile_get');
-			});
+					res.redirect('/profile_get');
+				});
         	connection.release();
-        });
+			});
+		}
+	}
     });
 });
 
@@ -779,7 +811,8 @@ router.get('/reservation_my', function (req, res, next) {
 					title: 'reservation',
 					reservation: rows[0],
 					package: rows[1],
-					login : login
+					login : login,
+					user_id: user_id
 				});
 				connection.release();
 		});
@@ -787,4 +820,33 @@ router.get('/reservation_my', function (req, res, next) {
 	});
 });
 //router.post()
+
+//------------------------지현(은)는 (판매자의 내정보 부분에서 판매 현황)을 인터셉트했다!--------------------------
+/*판매자 MY -> 판매 현황 */
+router.get('/selling_product_my', function (req, res, next) {
+	var user_id = req.user.user_id;
+
+	if (req.user == undefined)
+		var login = 'unlogin';
+	else
+		var login = 'login';
+
+	console.log(user_id);
+	pool.getConnection(function (err, connection) {
+		if (err) return res.sendStatus(400);
+		var sqlForSelectList = "select * from package where seller_id = ?;";
+		connection.query(sqlForSelectList, user_id, function (err, rows) {
+			if (err) console.error("err1 : " + err);
+				console.log("rows : " + JSON.stringify(rows));
+				res.render('selling_product_my', {
+					title: 'selling_product_my',
+					package: rows,
+					login : login,
+					user_id: user_id
+				});
+				connection.release();
+		});
+
+	});
+});
 module.exports = router;
