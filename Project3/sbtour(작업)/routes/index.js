@@ -54,13 +54,15 @@ router.get('/', function(req, res, next) {
             if (req.user == undefined)
                 var login = 'unlogin';
             else
-                var login = 'login';
+				var login = 'login';
+				
 
             res.render('index', { title: 'test', rows: rows, login: login });
             connection.release();
         });
     });
 });
+
 
 //----------------------Get route define -----------------------
 //각 get 마다 필요한 query 문으로 data select 해서 가져와서 출력 ex)get '/' 함수
@@ -92,7 +94,12 @@ router.get('/about', function(req, res, next) {
 
 /* GET  */
 router.get('/product', function(req, res, next) {
-	res.render('product',{title: "product"});
+	if (req.user == undefined)
+		var login = 'unlogin';
+	else
+		var login = 'login';
+		
+	res.render('product',{title: "product", login:login});
 });
 
 /* GET  */
@@ -117,6 +124,11 @@ router.get('/insurance', function(req, res, next) {
 /* GET */ 
 router.get('/packages/:name', function(req, res, next) {
 	var isKorea = req.params.name;
+	if (req.user == undefined)
+		var login = 'unlogin';
+	else
+		var login = 'login';
+		
 
 	if (isKorea === 'korea'){
 		var Korea = "대한민국";
@@ -149,7 +161,7 @@ router.get('/packages/:name', function(req, res, next) {
 
 			console.log("isKorea : "+JSON.stringify(Korea));
 			console.log("rows : "+JSON.stringify(rows[0]));
-			res.render('packages', { title: 'packages', rows: rows });
+			res.render('packages', { title: 'packages', rows: rows, login:login });
 			connection.release();
 		});
 	});
@@ -163,6 +175,11 @@ router.get('/packages_search', function(req,res,next){
 	var end = req.query.end; 
 	var data;
 	var sqlForSelectList;
+	if (req.user == undefined)
+            var login = 'unlogin';
+    else
+			var login = 'login';
+				
 	pool.getConnection(function (err,connection){
 		if(err) return res.sendStatus(400);
 		if(city === ""){
@@ -180,7 +197,7 @@ router.get('/packages_search', function(req,res,next){
 			console.log("end : "+JSON.stringify(end));
 			console.log("rows : "+JSON.stringify(rows));
 
-			res.render('packages_search', { title: 'packages', rows: rows });
+			res.render('packages_search', { title: 'packages', rows: rows, login:login });
 			connection.release();
 		});
 	});
@@ -190,6 +207,11 @@ router.get('/packages_sort/:city', function(req,res,next){
 	var city = req.params.city;
 	var sort = req.query.sort;
 	var sqlForSelectList;
+	if (req.user == undefined)
+            var login = 'unlogin';
+    else
+			var login = 'login';
+
 	if(sort === 'lowprice')
 	{
 		sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where country_id in (select country_id from country where country_category in (select country_category from country where country_id in (select country_id from tour where tour_id = ?) ))) order by package_cost" ;
@@ -221,6 +243,12 @@ router.get('/board/:page', function(req, res, next) {
 	var page = req.params.page;
 	var category = req.query.id;
 	var sql = "select * from board order by board_hit DESC;";
+
+	if (req.user == undefined)
+            var login = 'unlogin';
+    else
+			var login = 'login';
+
 	if(category === '1'){
 		var Korea = 1;
 	}
@@ -262,13 +290,19 @@ router.get('/board/:page', function(req, res, next) {
 		}
 		console.log("err: "+JSON.stringify(category));
 		console.log("rows: "+JSON.stringify(rows));
-		res.render('board', { title: 'board', rows: rows,page:page});
+		res.render('board', { title: 'board', rows: rows,page:page, login:login});
 		connection.release();
 		});
 	});
 });
 
 router.get('/insertcon', function(req, res, next) {
+
+	if (req.user == undefined)
+            var login = 'unlogin';
+    else
+			var login = 'login';
+
 	pool.getConnection(function (err,connection){
 		if(err) return res.sendStatus(400);
 		connection.query('SELECT * FROM package', function (err,rows){
@@ -279,7 +313,7 @@ router.get('/insertcon', function(req, res, next) {
 			console.error("err: "+err);
 			console.log("rows : "+JSON.stringify(rows));
 
-			res.render('insertcon', { title: 'insertcon', rows: rows });
+			res.render('insertcon', { title: 'insertcon', rows: rows , login:login});
 			connection.release();
 		});
 	});
@@ -308,6 +342,12 @@ router.post('/insertcon', function(req, res, next) {
 });
 
 router.get('/contents/:idx', function(req, res, next) {
+
+	if (req.user == undefined)
+            var login = 'unlogin';
+    else
+			var login = 'login';
+			
 	var idx = req.params.idx;
 	pool.getConnection(function (err,connection){
 		if(err) return res.sendStatus(400);
@@ -317,7 +357,7 @@ router.get('/contents/:idx', function(req, res, next) {
 		}
 		console.error("err: "+err);
 		console.log("rows: "+JSON.stringify(rows));
-		res.render('contents', { title: 'contents', rows: rows});
+		res.render('contents', { title: 'contents', rows: rows, login:login});
 		connection.release();
 		});
 	});
@@ -452,12 +492,13 @@ router.post('/joinForm', function(req, res, next) {
 
 /* GET 로그인 */
 router.get('/login', function(req, res, next) {
-    if (req.user != undefined) { //로그인이 된 경우
-        console.log('이미 로그인');
-        res.redirect('/');
-    }
-
-        var login = 'unlogin';
+	
+	if (req.user == undefined)
+            var login = 'unlogin';
+    else{
+		var login = 'login';
+		res.redirect('/');
+	}
     res.render('login', { title: 'login', login: login });
 });
 
@@ -470,16 +511,23 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/login'
 
 /* GET 로그아웃 */
 router.get('/logout', function(req, res) {
-    if (req.user != undefined) { //로그인된 경우에만
-        console.log('로그아웃');
-        req.logout();
-    }
-    res.redirect('/');
+	if (req.user == undefined)
+            var login = 'unlogin';
+    else{
+		var login = 'login';
+		req.logout();
+	}
+	res.redirect('/');		
 });
 
 /* GET 회원가입 */
 router.get('/joinForm', isAuthenticated, function(req, res, next) { //로그인한 상태에서는 홈으로 바로 이동
-    res.render('joinForm', { title: 'Join Form' });
+	if (req.user == undefined)
+        var login = 'unlogin';
+    else{
+		var login = 'login';
+	}
+    res.render('joinForm', { title: 'Join Form', login:login });
 });
 //------------------------지현이부분 끝--------------------------
 
@@ -487,6 +535,11 @@ router.get('/joinForm', isAuthenticated, function(req, res, next) { //로그인�
 //------------------------정현우부분-------------------------
 router.get('/product/:package_id', function (req, res, next) {
 	var package = req.params.package_id;
+	if (req.user == undefined)
+        var login = 'unlogin';
+    else{
+		var login = 'login';
+	}
 	console.log(req.user);
 	if (req.user == undefined) {
 		res.send('<script type="text/javascript">alert("로그인이 필요합니다!!!!!!!");location.href="/login";</script>');
@@ -509,7 +562,8 @@ router.get('/product/:package_id', function (req, res, next) {
 					title: 'package_id',
 					rows: rows[0],
 					customer: rows[1],
-					seller: rows[2]
+					seller: rows[2],
+					login:login
 				});
 				connection.release();
 			});
@@ -564,6 +618,11 @@ router.post('/product/:package_id', function (req, res, next) {
 
 router.get('/reservation/:user_id', function (req, res, next) {
 	var user_id = req.user.user_id;
+	if (req.user == undefined)
+        var login = 'unlogin';
+    else{
+		var login = 'login';
+	}
 	console.log(user_id);
 	pool.getConnection(function (err, connection) {
 		if (err) return res.sendStatus(400);
@@ -577,7 +636,8 @@ router.get('/reservation/:user_id', function (req, res, next) {
 				res.render('reservation', {
 					title: 'reservation',
 					reservation: rows[0],
-					package: rows[1]
+					package: rows[1],
+					login:login
 				});
 				connection.release();
 		});
@@ -591,15 +651,19 @@ router.get('/profile_get', function (req, res, next) {
 	var type;
 	var sqlForSelectList1;
 	var render_;
-	if (req.user != undefined) { //로그인이 된 경우
-		console.log(req.user.user_id, req.user.user_name, req.user.user_type); //세션 출력
-		user_id  = req.user.user_id;
-		type = req.user.user_type;
-	}	
-	else{
+	
+	if (req.user == undefined){
+		var login = 'unlogin';
 		console.log('로그인 정보가 없습니다. ');
 		res.send('<script type="text/javascript">alert("로그인 정보가 없습니다..");location.href="/";</script>');
 	}
+	else{
+		var login = 'login';
+		user_id  = req.user.user_id;
+		type = req.user.user_type;
+	}
+		
+
 	if(type === "seller"){
 		sqlForSelectList1 = "select * from seller where seller_id = ?;"
 		render_ = "profile_seller";
@@ -613,7 +677,7 @@ router.get('/profile_get', function (req, res, next) {
 		connection.query(sqlForSelectList1, [user_id], function (err, rows) {
 			if (err) console.error("err1 : " + err);
 				console.log("rows[0] : " + JSON.stringify(rows));
-				res.render(render_, { title: render_ ,rows :rows });
+				res.render(render_, { title: render_ ,rows :rows , login:login});
 				connection.release();
 		});
 
@@ -621,6 +685,11 @@ router.get('/profile_get', function (req, res, next) {
 });
 /* GET 판매등록창 */
 router.get('/sale_product', function(req, res, next) { //로그인한 상태에서는 홈으로 바로 이동
+	if (req.user == undefined)
+		var login = 'unlogin';
+	else{
+		var login = 'login';
+	}	
 	var sql = "select * from city;" 
 			+"select * from country;";
 	pool.getConnection(function (err,connection){
@@ -632,7 +701,7 @@ router.get('/sale_product', function(req, res, next) { //로그인한 상태에�
 			} console.error("err: "+err);
 			console.log("rows : "+JSON.stringify(rows));
 
-			res.render('sale_product', { title: 'sale_product', rows: rows });
+			res.render('sale_product', { title: 'sale_product', rows: rows, login:login });
 			connection.release();
 		});
 	});
@@ -690,6 +759,12 @@ router.post('/sale_product', function(req, res, next) {
 
 router.get('/reservation_my', function (req, res, next) {
 	var user_id = req.user.user_id;
+
+	if (req.user == undefined)
+		var login = 'unlogin';
+	else
+		var login = 'login';
+
 	console.log(user_id);
 	pool.getConnection(function (err, connection) {
 		if (err) return res.sendStatus(400);
@@ -703,7 +778,8 @@ router.get('/reservation_my', function (req, res, next) {
 				res.render('reservation', {
 					title: 'reservation',
 					reservation: rows[0],
-					package: rows[1]
+					package: rows[1],
+					login : login
 				});
 				connection.release();
 		});
