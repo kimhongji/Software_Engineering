@@ -538,121 +538,6 @@ router.get('/product/:package_id', function(req, res, next) {
 
     if (req.user == undefined)
         var login = 'unlogin';
-<<<<<<< HEAD
-    else {
-        var login = 'login';
-    }
-
-    console.log(req.user);
-
-    if (req.user == undefined) {
-        res.send('<script type="text/javascript">alert("로그인이 필요합니다!!!!!!!");location.href="/login";</script>');
-    } else {
-        var customer_id = req.user.user_id;
-        pool.getConnection(function(err, connection) {
-            if (err) return res.sendStatus(400);
-            var sqlForSelectList = "select * from package where package_id = ?;" +
-                "select * from customer where customer_id = ?;" +
-                "select * from seller where seller_id in (select seller_id from package where package_id = ? );";
-
-            connection.query(sqlForSelectList, [package, customer_id, package], function(err, rows) {
-                if (err) console.error("err1 : " + err);
-                console.log("package_id : " + JSON.stringify(package));
-                console.log("rows[0] : " + JSON.stringify(rows[0]));
-                console.log("rows[1] : " + JSON.stringify(rows[1]));
-                console.log("rows[2] : " + JSON.stringify(rows[2]));
-                res.render('product', {
-                    title: 'package_id',
-                    rows: rows[0],
-                    customer: rows[1],
-                    seller: rows[2],
-                    login: login
-                });
-                connection.release();
-            });
-
-        });
-    }
-});
-
-function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-    if (month.length < 2)
-        month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-    return [year, month, day].join('/');
-}
-
-router.post('/product/:package_id', function(req, res, next) {
-    var customer_id = req.user.user_id;
-    var package_id = req.body.package_id;
-    var pay_id = Math.floor(Math.random() * 32767); //small int
-    var reserve_id = Math.floor(Math.random() * 32767); //small int
-    var reserve_date = Date();
-    var reserve_start = req.body.reserve_start;
-    var reserve_arrive = req.body.reserve_arrive;
-    var reserve_people = req.body.validity;
-    var reserve_price = req.body.reserve_price * reserve_people;
-    var reserve_status = 0;
-    reserve_date = formatDate(reserve_date);
-
-
-    var data1 = [pay_id, reserve_id];
-    var data2 = [customer_id, package_id, pay_id, reserve_date, reserve_start, reserve_arrive, reserve_people, reserve_price, reserve_status];
-    console.log(data1);
-    console.log(data2);
-
-
-    pool.getConnection(function(err, connection) {
-        var sqlForInsertBoard1 = "INSERT INTO payment(pay_id, pay_option, pay_status, reserve_id) values(?,0,0,?)";
-        var sqlForInsertBoard2 = "INSERT into reservation(customer_id,package_id,pay_id,reserve_date,reserve_start,reserve_arrive,reserve_people,reserve_price,reserve_status) values(?,?,?,?,?,?,?,?,?)";
-        connection.query(sqlForInsertBoard1, data1, function(err, rows1) {
-            if (err) console.error("err: " + err);
-            connection.query(sqlForInsertBoard2, data2, function(err, rows2) {
-                if (err) console.error("err: " + err);
-                res.redirect('/reservation/' + customer_id);
-                connection.release();
-            });
-        });
-    });
-});
-
-router.get('/reservation/:user_id', function(req, res, next) {
-    var user_id = req.user.user_id;
-    if (req.user == undefined)
-        var login = 'unlogin';
-    else {
-        var login = 'login';
-    }
-    console.log(user_id);
-
-    if (req.user.user_type == 'seller') {
-        res.send('<script type="text/javascript">alert("판매자는 예약을 할 수 없습니다."); history.back(); </script>');
-    }
-
-    pool.getConnection(function(err, connection) {
-        if (err) return res.sendStatus(400);
-        var sqlForSelectList =
-            "select * from reservation where customer_id = ?;" +
-            "select * from package where package_id in(select package_id from reservation where customer_id = ? );";
-        connection.query(sqlForSelectList, [user_id, user_id], function(err, rows) {
-            if (err) console.error("err1 : " + err);
-            console.log("rows[0] : " + JSON.stringify(rows[0]));
-            console.log("rows[1] : " + JSON.stringify(rows[1]));
-            res.render('reservation', {
-                title: 'reservation',
-                reservation: rows[0],
-                package: rows[1],
-                login: login
-            });
-            connection.release();
-        });
-
-    });
-=======
     else{
 		var login = 'login';
 	}
@@ -767,7 +652,6 @@ router.get('/reservation/:user_id', function (req, res, next) {
 		});
 
 	});
->>>>>>> ff5bef6607624a31c1857a4bf4b5af89a681120c
 });
 //------------------------정현우 부분 끝--------------------------
 //------------------------홍지(내정보 부분)--------------------------
@@ -929,7 +813,6 @@ router.get('/reservation_my', function(req, res, next) {
 //---------------------------홍지 부분 끝--------------------------------
 //------------------------지현(은)는 (판매자의 내정보 부분에서 판매 현황)을 인터셉트했다!--------------------------
 /*판매자 MY -> 판매 현황 */
-<<<<<<< HEAD
 router.get('/selling_product_my', function(req, res, next) {
     var user_id = req.user.user_id;
 
@@ -1065,34 +948,4 @@ router.post('/sale_product_update', upload.array('img'), function(req, res, next
     });
 });
 module.exports = router;
-=======
-router.get('/selling_product_my', function (req, res, next) {
-	var user_id = req.user.user_id;
 
-	if (req.user == undefined)
-		var login = 'unlogin';
-	else
-		var login = 'login';
-
-	console.log(user_id);
-	pool.getConnection(function (err, connection) {
-		if (err) return res.sendStatus(400);
-		var sqlForSelectList = "select * from package where seller_id = ?;";
-		connection.query(sqlForSelectList, user_id, function (err, rows) {
-			if (err) console.error("err1 : " + err);
-				console.log("rows : " + JSON.stringify(rows));
-				res.render('selling_product_my', {
-					title: 'selling_product_my',
-					package: rows,
-					login : login,
-					user_id: user_id
-				});
-				connection.release();
-		});
-
-	});
-});
-
-
-module.exports = router;
->>>>>>> ff5bef6607624a31c1857a4bf4b5af89a681120c
