@@ -45,7 +45,7 @@ function imageUpload(files) {
 router.get('/', function(req, res, next) {
     pool.getConnection(function(err, connection) {
         if (err) return res.sendStatus(400);
-        connection.query('SELECT * FROM package', function(err, rows) {
+        connection.query('SELECT * FROM package ORDER BY package_hit  DESC', function(err, rows) {
             if (err) { // packate 정보에 대한 data select
                 connection.release();
                 return res.send(400, 'couldnt get a connection');
@@ -382,9 +382,10 @@ router.get('/contents/:idx', function(req, res, next) {
 });
 router.post('/contents/:idx', function(req, res, next) {
 	var idx=req.params.idx;
+	var customer_id = req.user.user_id;//현재 사용자 custmoer_id
 	pool.getConnection(function (err,connection){
 		if(err) return res.sendStatus(400);
-		connection.query('delete from board where board_id=?',[idx],function(err,rows){
+		connection.query('delete from board where board_id=? AND customer_id=?',[idx,customer_id],function(err,rows){
 			if(err){connection.release();
 			return res.send(400,'cound not get a connection');
 		}
@@ -568,9 +569,10 @@ router.get('/product/:package_id', function (req, res, next) {
 			if (err) return res.sendStatus(400);
 			var sqlForSelectList = "select * from package where package_id = ?;" +
 				"select * from customer where customer_id = ?;" +
-				"select * from seller where seller_id in (select seller_id from package where package_id = ? );";
+				"select * from seller where seller_id in (select seller_id from package where package_id = ? );"+
+				"update package set package_hit = package_hit+1 where package_id = ?;";
 
-			connection.query(sqlForSelectList, [package, customer_id, package], function (err, rows) {
+			connection.query(sqlForSelectList, [package, customer_id, package,package], function (err, rows) {
 				if (err) console.error("err1 : " + err);
 				console.log("package_id : " + JSON.stringify(package));
 				console.log("rows[0] : " + JSON.stringify(rows[0]));
@@ -622,7 +624,7 @@ router.post('/product/:package_id', function (req, res, next) {
 
 	pool.getConnection(function (err, connection) {
 		var sqlForInsertBoard1 = "INSERT INTO payment(pay_id, pay_option, pay_status, reserve_id) values(?,0,0,?)";
-		var sqlForInsertBoard2 = "INSERT into reservation(customer_id,package_id,pay_id,reserve_date,reserve_start,reserve_arrive,reserve_people,reserve_price,reserve_status) values(?,?,?,?,?,?,?,?,?)";
+		var sqlForInsertBoard2 = "INSERT into reservation(customer_id,package_id,pay_id,reserve_date,reserve_start,reserve_arrive,reserve_people,reserve_price,reserve_status) values(?,?,?,?,?,?,?,?,?)" ;
 		connection.query(sqlForInsertBoard1, data1, function (err, rows1) {
 			if (err) console.error("err: " + err);
 				connection.query(sqlForInsertBoard2, data2, function (err, rows2) {
@@ -636,10 +638,16 @@ router.post('/product/:package_id', function (req, res, next) {
 
 router.get('/reservation/:user_id', function (req, res, next) {
 	var user_id = req.user.user_id;
+	var user_type = req.user.user_type;
 	if (req.user == undefined)
         var login = 'unlogin';
     else{
 		var login = 'login';
+	}
+
+	if( user_type === "seller"){
+		res.send('<script type="text/javascript">alert("판매자는 예약 할 수 없습니다.");history.back();</script>');
+		res.redirect('/packages/oversea');
 	}
 	console.log(user_id);
 	pool.getConnection(function (err, connection) {
@@ -655,6 +663,7 @@ router.get('/reservation/:user_id', function (req, res, next) {
 					title: 'reservation',
 					reservation: rows[0],
 					package: rows[1],
+					user_id : user_id,
 					login:login
 				});
 				connection.release();
@@ -820,7 +829,7 @@ router.get('/reservation_my', function (req, res, next) {
 	});
 });
 //router.post()
-
+//---------------------------홍지 부분 끝--------------------------------
 //------------------------지현(은)는 (판매자의 내정보 부분에서 판매 현황)을 인터셉트했다!--------------------------
 /*판매자 MY -> 판매 현황 */
 router.get('/selling_product_my', function (req, res, next) {
@@ -849,4 +858,6 @@ router.get('/selling_product_my', function (req, res, next) {
 
 	});
 });
+
+
 module.exports = router;

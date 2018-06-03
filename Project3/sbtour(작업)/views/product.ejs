@@ -112,16 +112,16 @@
               <div class="col-lg-9 col-md-9">
                 <h3 class="mt-20 mb-20"><%=rows[0].package_name%></h3>
                     <div>
-                     사용자 평가:  
+                     조회수:  
                       <script>
                         var star = <%=rows[0].package_hit %>;
-                        for (var i = 0; i < 5; i++) {
+                        for (var i = 0; i < star; i++) {
                           if (i < star) {
                             document.write('<span class="fa fa-star checked"></span>');
                           }
                         }
                       </script>
-                     <%=rows[0].package_hit %>점
+                     <%=rows[0].package_hit %> 회
                     </div><br>
                 <p><h5>특가 상품은 다 모였다~ 저렴한 가격으로 알찬 일정 즐기기!!<h5></p>
                 <div align="right">

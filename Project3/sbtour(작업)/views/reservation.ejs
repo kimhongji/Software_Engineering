@@ -78,21 +78,21 @@
       </div>
     </section>
 
-    <form action="payment" method="post">
+    <form action="/payment" method="post">
       <section class="post-content-area single-post-area">
         <div class="container">
           <div class="row">
           
             <table class="table-header-group" width="100%" border="0">
               <tr>
-                <th><input type="checkbox" id="mycheck_all" onClick="checkAll(this);"/></button></th>
-                <th colspan = "2">패키지명</th> 
+                <th colspan = "3">패키지명</th> 
                 <th>출발일</th>
                 <th>도착일</th>
                 <th>여행일수</th>
                 <th>탑승객 수</th>
                 <th>총 가격</th>
                 <th>결제상태</th>
+        
               </tr>
               <script type="text/javascript" language="javascript">
             function checkAll(source){
@@ -134,7 +134,7 @@
                       else if(<%=res.reserve_status%> == 1){
                         res_st += "결제완료(판매자 수락중)";
                       }
-                      else if(<%=res.reserve_status%> == 1){
+                      else if(<%=res.reserve_status%> == 2){
                         res_st += "결제 완료";
                       }
                       else {
@@ -144,6 +144,7 @@
                       document.write(res_st);
                   </script>
                   </td>
+                  
                 </tr>
               </tbody>
               <%}%>
@@ -154,7 +155,8 @@
       </section>
       <section class="post-content-area single-post-area">
         <div class="col-lg-12" align="center">
-          <button class="genric-btn primary e-large" type="submit" name="payment" align="center">결제하기</button>
+          <button class="genric-btn primary e-large" type="submit" name="payment" align="center">취소하기</button>
+          <button class="genric-btn primary e-large" type="submit" name="cancel" align="center">결제하기</button>
         </div>
       </section>
     </form>
