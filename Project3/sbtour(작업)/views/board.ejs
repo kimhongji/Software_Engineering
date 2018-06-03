@@ -63,7 +63,7 @@
 
 						<% 	var k =0;
 						for (var i =0; i<rows[1].length; i++){
-							if(rows[1][i].board_rating==5 && k<3) {
+							if(rows[1][i].board_rating==5 && k<3&&rows[1][i]!=null) {
 								var Item = rows[1][i];
 								k++;
 								%>
@@ -74,7 +74,7 @@
 									<!--<a href="/contents/<%=Item.board_id%>" target="_blank">-->
 										<a href="/contents/<%=Item.board_id%>">
 											<div class="thumb">
-											 <img class="content-image img-fluid d-block mx-auto" src="../img/blog/cat-widget1.jpg" alt="">
+											<img class="content-image img-fluid d-block mx-auto" style="width: 440px; height: 200px"; src="/img/packages/<%=Item.board_img%>" alt="">
 											</div>
 											<div class="content-details">
 												<h4 class="content-title mx-auto text-uppercase" href="contents/<%=Item.board_id%>"><%=Item.package_id%></h4>
@@ -118,11 +118,16 @@
 								</div>
 								<div class="col-lg-9 col-md-9 ">
 									<div class="feature-img">
-										<img class="img-fluid" src="<%=Item.board_img%>" alt="">
+											<img class="img-fluid" src="/img/packages/<%=Item.board_img%>" alt="">
 									</div>
 									<a class="posts-title" href="/contents/<%=Item.board_id%>"><h3><%=Item.board_title%></h3></a>
 									<p class="excert">
-										<%=Item.board_content%>
+											<% for (var j =0; j<200; j++){
+												if(Item.board_content[j]!=null) { %>
+												<%=Item.board_content[j]%>
+												<%
+												}
+											}%>
 									</p>
 									<a href="/contents/<%=Item.board_id%>" class="primary-btn">더 보기</a>
 								</div>
@@ -216,12 +221,13 @@
 								<div class="single-sidebar-widget popular-post-widget">
 									<h4 class="popular-title">인기있는 후기</h4>
 									<div class="popular-post-list">
-										<% for(var i=0; i<2; i++){
+										<% for(var i=0; i<3; i++){
+										if(rows[0][i]!=null){
 										var Item  = rows[0][i];
 										%>
 										<div class="single-post-list d-flex flex-row align-items-center">
 											<div class="thumb">
-													<img class="img-fluid" style="width: 120px; height: 90px;" src="/img/packages/<%=Item.board_img%>" alt="">
+													<img class="img-fluid" style="width: 120px; height: 80px;" src="/img/packages/<%=Item.board_img%>" alt="">
 											</div>
 											<div class="details">
 												<a href="../contents/<%=Item.board_id%>"><h6><%=Item.board_title%></h6></a>
@@ -229,6 +235,7 @@
 											</div>
 										</div>
 										<%
+									}
 									}
 									%>
 									</div>

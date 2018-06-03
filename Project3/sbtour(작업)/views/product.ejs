@@ -123,6 +123,23 @@
                       </script>
                      <%=rows[0].package_hit %> 회
                     </div><br>
+                    
+                 <div>패키지 총 평점&nbsp;:&nbsp;
+                   <%
+                    var average = 0;
+                    for(var i =0; i<star.length;i++){
+                  if(star[i].board_rating!=null) {
+                       average += star[i].board_rating;
+                     }
+                    }
+              if(average==0){ %>
+               아직 후기가 없습니다
+               <%
+                }
+                else{
+                %><%=average/(star.length)%>점<%
+                   }%>
+                  </div>
                 <p><h5>특가 상품은 다 모였다~ 저렴한 가격으로 알찬 일정 즐기기!!<h5></p>
                 <div align="right">
                 <select name="validity" id="validity">

@@ -101,7 +101,7 @@
 					<div class="single-destination relative">
 						<div class="thumb relative">
 							<div class="overlay overlay-bg"></div>
-							<p>best <%=i+1%></p>
+							<p >best <%=i+1%></p>
 							<img class="img-fluid" style="width: 440px; height: 200px;" src="img/packages/<%=oneItem.package_img%>" alt="">
 						</div>
 						<div class="desc">
@@ -111,10 +111,22 @@
 							<p>Paraguay</p>
 						</div>
 					</div>
-				</div>
-			<%
-				}
-		  	%>
+					<div align="center">
+						조회수:  
+						<script>
+						  var star = <%=rows[i].package_hit %>;
+						  for (var i = 0; i < star; i++) {
+							if (i < star) {
+							  document.write('<span class="fa fa-star checked"></span>');
+							}
+						  }
+						</script>
+					   <%=oneItem.package_hit %> 회	
+						</div>
+					</div>
+				<%
+					}
+		  		%>
 			</div>
 		</div>
 	</section>

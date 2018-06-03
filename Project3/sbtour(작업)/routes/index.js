@@ -223,7 +223,7 @@ router.get('/packages_sort/:city', function(req,res,next){
 		sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where country_id in (select country_id from country where country_category in (select country_category from country where country_id in (select country_id from tour where tour_id = ?) ))) order by package_cost DESC" ;
 	}
 	else if(sort === 'hit'){
-		sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where country_id in (select country_id from country where country_category in (select country_category from country where country_id in (select country_id from tour where tour_id = ?) ))) order by package_hit" ;
+		sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where country_id in (select country_id from country where country_category in (select country_category from country where country_id in (select country_id from tour where tour_id = ?) ))) order by package_hit DESC" ;
 	}
 	else if(sort === 'named'){
 		sqlForSelectList = "select * from package where tour_id in (select tour_id from tour where country_id in (select country_id from country where country_category in (select country_category from country where country_id in (select country_id from tour where tour_id = ?) ))) order by package_id" ;
@@ -330,7 +330,7 @@ router.post('/insertcon',  upload.array('img'),  function(req, res, next) {
 	var board_content = req.body.content;
 	var board_img = req.body.img;
 	var board_rating = req.body.star;
-	var board_hit = "10";
+	var board_hit = "1";
 	var datas = [customer_id,package_id,board_title,board_start,board_arrive,board_content,board_img,board_rating,board_hit];
 
 	var filelength = req.files.length;
@@ -570,9 +570,10 @@ router.get('/product/:package_id', function (req, res, next) {
 			var sqlForSelectList = "select * from package where package_id = ?;" +
 				"select * from customer where customer_id = ?;" +
 				"select * from seller where seller_id in (select seller_id from package where package_id = ? );"+
-				"update package set package_hit = package_hit+1 where package_id = ?;";
+				"update package set package_hit = package_hit+1 where package_id = ?;"+
+				"select  * from board where package_id=?;";
 
-			connection.query(sqlForSelectList, [package, customer_id, package,package], function (err, rows) {
+			connection.query(sqlForSelectList, [package, customer_id, package,package,package], function (err, rows) {
 				if (err) console.error("err1 : " + err);
 				console.log("package_id : " + JSON.stringify(package));
 				console.log("rows[0] : " + JSON.stringify(rows[0]));
@@ -583,6 +584,7 @@ router.get('/product/:package_id', function (req, res, next) {
 					rows: rows[0],
 					customer: rows[1],
 					seller: rows[2],
+					star : rows[4],
 					login:login
 				});
 				connection.release();
@@ -828,36 +830,171 @@ router.get('/reservation_my', function (req, res, next) {
 
 	});
 });
-//router.post()
-//---------------------------홍지 부분 끝--------------------------------
-//------------------------지현(은)는 (판매자의 내정보 부분에서 판매 현황)을 인터셉트했다!--------------------------
-/*판매자 MY -> 판매 현황 */
-router.get('/selling_product_my', function (req, res, next) {
-	var user_id = req.user.user_id;
 
+
+router.get('/payment', function (req, res, next) {
+	var user_id = req.user.user_id;
+	var reserv_id = req.query.mycheck;
+	console.log("user_id : " + JSON.stringify(user_id));
+	console.log("reserv_id : " + JSON.stringify(reserv_id));
 	if (req.user == undefined)
 		var login = 'unlogin';
 	else
 		var login = 'login';
 
-	console.log(user_id);
+	
 	pool.getConnection(function (err, connection) {
 		if (err) return res.sendStatus(400);
-		var sqlForSelectList = "select * from package where seller_id = ?;";
-		connection.query(sqlForSelectList, user_id, function (err, rows) {
+		var sqlForSelectList = "update reservation set reserve_status=reserve_status+1 where reserve_id = ?;"
+		//res.send('<script type="text/javascript">var retVal = confirm("결제 하시겠습니까 ?");if( retVal == true ){alert("결제 완료");location.href="/payment_plus?reserve:"}else{alert("결제 취소");history.back();}</script>');
+		
+		connection.query(sqlForSelectList, [reserv_id], function (err, rows) {
 			if (err) console.error("err1 : " + err);
-				console.log("rows : " + JSON.stringify(rows));
-				res.render('selling_product_my', {
-					title: 'selling_product_my',
-					package: rows,
-					login : login,
-					user_id: user_id
-				});
-				connection.release();
+			res.send('<script type="text/javascript">alert("결제가 완료 되었습니다.");location.href="/reservation_my";</script>');
+			//res.redirect('/reservation_my');
+			connection.release();
 		});
 
 	});
 });
 
 
+//router.post()
+//---------------------------홍지 부분 끝--------------------------------
+//------------------------지현(은)는 (판매자의 내정보 부분에서 판매 현황)을 인터셉트했다!--------------------------
+/*판매자 MY -> 판매 현황 */
+router.get('/selling_product_my', function(req, res, next) {
+    var user_id = req.user.user_id;
+
+    if (req.user == undefined)
+        var login = 'unlogin';
+    else
+        var login = 'login';
+
+    console.log(user_id);
+    pool.getConnection(function(err, connection) {
+        if (err) return res.sendStatus(400);
+        var sqlForSelectList = "select * from package where seller_id = ?;";
+        connection.query(sqlForSelectList, user_id, function(err, rows) {
+            if (err) console.error("err1 : " + err);
+            console.log("rows : " + JSON.stringify(rows));
+            res.render('selling_product_my', {
+                title: 'selling_product_my',
+                package: rows,
+                login: login,
+                user_id: user_id
+            });
+            connection.release();
+        });
+
+    });
+});
+
+/*판매자 MY -> 판매 상품 현황 -> 상품 수정 */
+router.get('/sale_product_update', function(req, res, next) {
+    var user_id = req.user.user_id;
+    var package = req.query.package_id;
+
+    console.log("package: " + package);
+
+    if (req.user == undefined)
+        var login = 'unlogin';
+    else
+        var login = 'login';
+
+    pool.getConnection(function(err, connection) {
+        if (err) return res.sendStatus(400);
+        var datas = [package, package, package]
+
+        var sqlForSelectList =
+            "select * from country where country_id in (select country_id from tour where tour_id in (select tour_id from package where package_id = ?));" + 
+            "select * from city where city_id in (select city_id from tour where tour_id in (select tour_id from package where package_id = ?));" + 
+            "select * from package where package_id = ?;" + 
+            "select * from country;" + 
+        	"select * from city;"; 
+
+        connection.query(sqlForSelectList, datas, function(err, rows) {
+            if (err) console.error("err1 : " + err);
+
+            console.log("국가 : " + JSON.stringify(rows[0]));
+            console.log("도시 : " + JSON.stringify(rows[1]));
+            console.log("패키지 : " + JSON.stringify(rows[2]));
+
+            res.render('sale_product_update', {
+                title: 'sale_product_update',
+                country: rows[0],
+                city: rows[1],
+                package: rows[2],
+               	allcountry: rows[3],
+               	allcity: rows[4], 
+                login: login,
+                user_id: user_id
+            });
+            connection.release();
+        });
+
+    });
+});
+
+/* POST 판매수정 PACKAGE UPDATE */
+router.post('/sale_product_update', upload.array('img'), function(req, res, next) {
+    var user_id;
+    var type;
+    var render_;
+    var tour_id;
+    if (req.user != undefined) { //로그인이 된 경우
+        console.log(req.user.user_id, req.user.user_name, req.user.user_type); //세션 출력
+        user_id = req.user.user_id;
+        type = req.user.user_type;
+    }
+    var country_name = req.body.country;
+    var city_name = req.body.package;
+    var package_id = req.body.package_id;
+    var package_name = req.body.package_name;
+    var package_explan = req.body.package_explan;
+    var package_img = req.body.img;
+    var start = req.body.start;
+    var end = req.body.end;
+    var package_term = req.body.package_term;
+    var package_validity = req.body.package_validity;
+    var package_cost = req.body.package_cost;
+    var package_closed = req.body.package_closed;
+
+    var data1 = [country_name, city_name];
+
+    var filelength = req.files.length;
+    var uploadcnt = 0;
+
+    console.log(data1);
+    pool.getConnection(function(err, connection) {
+        var sqlforInsertTour =
+            "select tour_id from tour where country_id in (select country_id from country where country_name = ? ) and  city_id in (select city_id from city where city_name=?) ORDER BY tour_id LIMIT 1";
+        var sqlForInsertBoard = "update package set tour_id=?, package_name=?, package_explanation=?, package_img=?, package_start=?, package_arrive=?, package_term=?, package_validity=?, package_cost=?, package_closed=? where package_id = ?;";
+
+        for (var i = 0; i < filelength; i++) {
+            console.log(filelength);
+            filename = imageUpload(req.files[i]);
+            uploadcnt += 1;
+            console.log("filename" + JSON.stringify(filename));
+            console.log("uploadcnt" + JSON.stringify(uploadcnt));
+
+            if (uploadcnt == filelength) {
+                connection.query(sqlforInsertTour, data1, function(err, tour_id) {
+                    if (err) console.error("err: " + err);
+                    console.log("tour_id: " + JSON.stringify(tour_id));
+                    var datas2 = [tour_id[0].tour_id, package_name, package_explan, filename, start, end, package_term, package_validity, package_cost, package_closed, package_id];
+                    console.log("datas2: " + JSON.stringify(datas2));
+
+                    connection.query(sqlForInsertBoard, datas2, function(err, rows) {
+                        if (err) console.error("err: " + err);
+                        console.log("rows: " + JSON.stringify(rows));
+
+                        res.redirect('/profile_get');
+                    });
+                    connection.release();
+                });
+            }
+        }
+    });
+});
 module.exports = router;
