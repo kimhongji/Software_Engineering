@@ -2,154 +2,162 @@
 <html lang="zxx" class="no-js">
 
 <head>
-	<!-- Mobile Specific Meta -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/fav.png">
-	<!-- Author Meta -->
-	<meta name="author" content="colorlib">
-	<!-- Meta Description -->
-	<meta name="description" content="">
-	<!-- Meta Keyword -->
-	<meta name="keywords" content="">
-	<!-- meta character set -->
-	<meta charset="UTF-8">
-	<!-- Site Title -->
-	<title>Travel</title>
-
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-	<!--
-			CSS
-			============================================= -->
-	<link rel="stylesheet" href="css/linearicons.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	<link rel="stylesheet" href="css/jquery-ui.css">
-	<link rel="stylesheet" href="css/nice-select.css">
-	<link rel="stylesheet" href="css/animate.min.css">
-	<link rel="stylesheet" href="css/owl.carousel.css">
-	<link rel="stylesheet" href="css/main.css">
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png">
+    <!-- Author Meta -->
+    <meta name="author" content="colorlib">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Travel</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <!--
+      CSS
+      ============================================= -->
+    <link rel="stylesheet" href="css/linearicons.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
     <% include header.html %>
-    <!-- #header -->
-    <!-- start banner Area -->
-     <!-- start banner Area -->
-     <section class="banner-area relative">
-        <div class="overlay overlay-bg"></div>
-        <div class="container">
-            <div class="row fullscreen align-items-center justify-content-between">
-                <div class="col-lg-5 col-md-6 banner-left">
-                    <h1 class="text-white">상품 판매 하기</h1>
-                    <p class="text-white">
-                        원하시는 상품을 등록 하실 수 있습니다. 
-                    </p>
-                </div>
-                <div class="col-lg-5 col-md-6 banner-right">
-                    <div class="tab-content" id="myTabContent">
-                        <!-- 판매자 등록창 -->
-                        <div class="tab-pane fade show active" id="join_customer" role="tabpanel" aria-labelledby="join_customer">
-                            <form class="form-wrap" method="post" onsubmit="return onWriteSubmit()" action="/sale_product">
-                                <input type="hidden">
-                                <div class="input-group-icon mt-10">
-                                    <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
+        <!-- #header -->
+        <!-- start banner Area -->
+        <!-- start banner Area -->
+        <section class="banner-area relative">
+            <div class="overlay overlay-bg"></div>
+            <div class="container">
+                <div class="row fullscreen align-items-center justify-content-between">
+                    <div class="col-lg-5 col-md-6 banner-left">
+                        <h1 class="text-white">상품 판매 하기</h1>
+                        <p class="text-white">
+                            원하시는 상품을 등록 하실 수 있습니다.
+                        </p>
+                    </div>
+                    <div class="col-lg-5 col-md-6 banner-right">
+                        <div class="tab-content" id="myTabContent">
+                            <!-- 판매자 등록창 -->
+                            <div class="tab-pane fade show active" id="join_customer" role="tabpanel" aria-labelledby="join_customer">
+                                <form class="form-wrap" method="post" onsubmit="return onWriteSubmit()" action="/sale_product_update" enctype="multipart/form-data">
+                                    <input type="hidden">
+                                    <div class="input-group-icon mt-10">
+                                        <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
                                         <div class="form-select" id="default-select">
-                                          <select name="country" id="country">
-                                                <option value="1">나라를 선택하세요</option>
+                                            <select name="country" id="country">
+                                                <option value=<%=country[0].country_name%>>
+                                                    <%=country[0].country_name%>
+                                                </option>
                                                 <% for (var i =0; i<19; i++){
-                                                     var Item = rows[1][i];
+                                                     var Item = allcountry[i];
                                                 %>
-                                                  <option value="<%=Item.country_name%>"><%=Item.country_name%></option>
-                                               <%
+                                                    <option value="<%=Item.country_name%>">
+                                                        <%=Item.country_name%>
+                                                    </option>
+                                                    <%
                                                     }
                                                %>
-                                          </select>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="input-group-icon mt-10">
-                                    <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                                         <div class="form-select" id="default-select">
-                                             <select name="package" id="package">
-                                               <option value="1">도시를 선택하세요</option>
+                                    <div class="input-group-icon mt-10">
+                                        <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
+                                        <div class="form-select" id="default-select">
+                                            <select name="package" id="package">
+                                                <option value="<%=city[0].city_name%>">
+                                                    <%=city[0].city_name%>
+                                                </option>
                                                 <% for (var i =0; i<28; i++){
-                                                     var Item = rows[0][i];
+                                                     var Item = allcity[i];
                                                 %>
-                                                  <option value="<%=Item.city_name%>"><%=Item.city_name%></option>
-                                               <%
+                                                    <option value="<%=Item.city_name%>">
+                                                        <%=Item.city_name%>
+                                                    </option>
+                                                    <%
                                                     }
                                                %>
-                                              </select>
-                                      </div>
-                                </div>
-                                <input type="text" class="form-control" id="package_id"   name="package_id" placeholder="패키지 id" required/>
-                                <input type="text" class="form-control" id="package_name"   name="package_name" placeholder="패키지 Name" required/>
-                                <input type="text" class="form-control" id="package_explan" name="package_explan" placeholder="패키지 설명" required/>
-                                <input type="text" class="form-control date-picker" format="yyyy/mm/dd" name="start" placeholder="Start-date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-                                <input type="text" class="form-control date-picker" name="end" placeholder="end-date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-                                <input type="text" class="form-control" id="package_term" name="package_term" placeholder="기간(몇박몇일)" required/>
-                                <input type="text" class="form-control" id="package_validity" name="package_validity" placeholder="유효인원(명수)" required/>
-                                <input type="text" class="form-control" id="package_cost" name="package_cost" placeholder="가격(단위: 만원)" required/>
-                                <input type="text" class="form-control date-picker"id="package_closed" name="package_closed" placeholder="마감 일자" required/>
-                                <input type="hidden" class="form-control" id="hit" name="hit" placeholder="별점" required/>
-                                <button class="primary-btn" type="submit" id="customer_button">등록</button>
-                            </form>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <input type="text" class="form-control" id="package_id" name="package_id" value="<%=package[0].package_id%>" required/>
+                                    <input type="text" class="form-control" id="package_name" name="package_name" value="<%=package[0].package_name%>" required/>
+                                    <input type="text" class="form-control" id="package_explan" name="package_explan" value="<%=package[0].package_explanation%>" required/>
+                                    <input type="file" class="form-control" id='img' name="img" placeholder="첨부 이미지" required/>
+                                    <input type="text" class="form-control date-picker" format="yyyy/mm/dd" name="start" value="<%=package[0].package_start%>" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
+                                    <input type="text" class="form-control date-picker" format="yyyy/mm/dd" name="end" value="<%=package[0].package_arrive%>" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
+                                    <input type="text" class="form-control" id="package_term" name="package_term" value="<%=package[0].package_term%>" required/>
+                                    <input type="text" class="form-control" id="package_validity" name="package_validity" value="<%=package[0].package_validity%>" required/>
+                                    <input type="text" class="form-control" id="package_cost" name="package_cost" value="<%=package[0].package_cost%>" required/>
+                                    <input type="text" class="form-control date-picker" id="package_closed" name="package_closed" value="<%=package[0].package_closed%>" required/>
+                                    <button class="primary-btn" type="submit" id="customer_button">수정</button>
+                                </form>
+                            </div>
+                            <!-- 판매자 회원가입창 -->
                         </div>
-                        <!-- 판매자 회원가입창 -->
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- End banner Area -->
-    <!-- start footer Area -->
-    <footer class="footer-area section-gap">
-        <div class="container">
-            <div class="row footer-bottom d-flex justify-content-between align-items-center">
-                <p class="col-lg-8 col-sm-12 footer-text m-0">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;
-                    <script>
-                    document.write(new Date().getFullYear());
-                    </script> All rights reserved | This template is made with
-                    <i class="fa fa-heart-o" aria-hidden="true"></i> by
-                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    <br> Copyright &copy;
-                    <script>
-                    document.write(new Date().getFullYear());
-                    </script> All rights reserved | This template is made with by Kwangwoon Software Engineering TEAM</a>
-                    <div class="col-lg-4 col-sm-12 footer-social">
-                        <a href="http://www.facebook.com">
+        </section>
+        <!-- End banner Area -->
+        <!-- start footer Area -->
+        <footer class="footer-area section-gap">
+            <div class="container">
+                <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                    <p class="col-lg-8 col-sm-12 footer-text m-0">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>
+                        document.write(new Date().getFullYear());
+                        </script> All rights reserved | This template is made with
+                        <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                        <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <br> Copyright &copy;
+                        <script>
+                        document.write(new Date().getFullYear());
+                        </script> All rights reserved | This template is made with by Kwangwoon Software Engineering TEAM</a>
+                        <div class="col-lg-4 col-sm-12 footer-social">
+                            <a href="http://www.facebook.com">
                      <i class="fa fa-facebook"></i>
                   </a>
-                        <a href="#">
+                            <a href="#">
                      <i class="fa fa-twitter"></i>
                   </a>
-                        <a href="#">
+                            <a href="#">
                      <i class="fa fa-dribbble"></i>
                   </a>
-                        <a href="#">
+                            <a href="#">
                      <i class="fa fa-behance"></i>
                   </a>
-                    </div>
+                        </div>
+                </div>
             </div>
-        </div>
-    </footer>
-    <!-- End footer Area -->
-    <script src="js/vendor/jquery-2.2.4.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/vendor/bootstrap.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/easing.min.js"></script>
-    <script src="js/hoverIntent.js"></script>
-    <script src="js/superfish.min.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/mail-script.js"></script>
-    <script src="js/main.js"></script>
+        </footer>
+        <!-- End footer Area -->
+        <script src="js/vendor/jquery-2.2.4.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script src="js/easing.min.js"></script>
+        <script src="js/hoverIntent.js"></script>
+        <script src="js/superfish.min.js"></script>
+        <script src="js/jquery.ajaxchimp.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/jquery.nice-select.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/mail-script.js"></script>
+        <script src="js/main.js"></script>
 </body>
 
 </html>

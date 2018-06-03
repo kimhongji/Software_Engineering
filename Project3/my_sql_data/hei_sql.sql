@@ -14,8 +14,30 @@ select * from package where tour_id in
 select country_category from country where country_id in
 	(select country_id from tour where tour_id = '2');
 	*/
-	
+
+/*	
 select * from package where tour_id in (select tour_id from tour where country_id in 
 (select country_id from country where country_category in 
 (select country_category from country where country_id in
 (select country_id from tour where tour_id = '9') ))) order by package_cost;
+*/
+
+select country_name from country where country_id in
+	(select country_id from tour where tour_id = '2');
+    
+select city_name from city where city_id in
+	(select city_id from tour where tour_id in
+    (select tour_id from package where package_id = '광주여행'));
+
+
+
+
+
+
+
+
+
+
+
+
+
