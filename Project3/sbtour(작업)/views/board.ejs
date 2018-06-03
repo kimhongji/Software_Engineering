@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 	<html lang="zxx" class="no-js">
 	<head>
 		<!-- Mobile Specific Meta -->
@@ -20,15 +20,15 @@
 			<!--
 			CSS
 			============================================= -->
-			<link rel="stylesheet" href="css/linearicons.css">
-			<link rel="stylesheet" href="css/font-awesome.min.css">
-			<link rel="stylesheet" href="css/bootstrap.css">
-			<link rel="stylesheet" href="css/magnific-popup.css">
-			<link rel="stylesheet" href="css/jquery-ui.css">
-			<link rel="stylesheet" href="css/nice-select.css">
-			<link rel="stylesheet" href="css/animate.min.css">
-			<link rel="stylesheet" href="css/owl.carousel.css">
-			<link rel="stylesheet" href="css/main.css">
+			<link rel="stylesheet" href="/css/linearicons.css">
+			<link rel="stylesheet" href="/css/font-awesome.min.css">
+			<link rel="stylesheet" href="/css/bootstrap.css">
+			<link rel="stylesheet" href="/css/magnific-popup.css">
+			<link rel="stylesheet" href="/css/jquery-ui.css">
+			<link rel="stylesheet" href="/css/nice-select.css">
+			<link rel="stylesheet" href="/css/animate.min.css">
+			<link rel="stylesheet" href="/css/owl.carousel.css">
+			<link rel="stylesheet" href="/css/main.css">
 		</head>
 		<body>
 				<% include header.html %>
@@ -63,19 +63,22 @@
 					<div class="row">
 
 						<% 	var k =0;
-							for (var i =0; i<rows.length; i++){
-								var Item = rows[i];
-						%>
+						for (var i =0; i<rows[1].length; i++){
+							if(rows[1][i].board_rating==5 && k<3) {
+								var Item = rows[1][i];
+								k++;
+								%>
 						<div class="col-lg-4">
 							<div class="single-cat-widget">
 								<div class="content relative">
 									<div class="overlay overlay-bg"></div>
-										<a href="/contents/<%=Item.package_id%>" target="_blank">
+									<!--<a href="/contents/<%=Item.board_id%>" target="_blank">-->
+										<a href="/contents/<%=Item.board_id%>">
 											<div class="thumb">
-											 <img class="content-image img-fluid d-block mx-auto" src="img/blog/cat-widget1.jpg" alt="">
+											 <img class="content-image img-fluid d-block mx-auto" src="../img/blog/cat-widget1.jpg" alt="">
 											</div>
 											<div class="content-details">
-												<h4 class="content-title mx-auto text-uppercase"><%=Item.package_id%></h4>
+												<h4 class="content-title mx-auto text-uppercase" href="contents/<%=Item.board_id%>"><%=Item.package_id%></h4>
 												<span></span>
 												<p><%=Item.board_title%></p>
 											</div>
@@ -84,7 +87,7 @@
 							</div>
 						</div>
 						<%
-								
+					}
 							}
 						%>
 					</div>
@@ -97,34 +100,36 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-8 posts-list">
-							<% for (var i =0; i<rows.length; i++){
-							 var Item = rows[i];
+							<% for (var i =page*5; i<(page*5)+5; i++){
+								if(rows[1][i]!=null){
+							 var Item = rows[1][i];
 							 %>
 							<div class="single-post row">
 								<div class="col-lg-3  col-md-3 meta-details">
 									<br>
 									<ul class="tags">
-										<li><a href="#"><%=Item.package_id%></a></li>
+										<li><a href="#">패키지&nbsp;:&nbsp;<%=Item.package_id%></a></li>
 									</ul>
 									<div class="user-details row">
-										<p class="user-name col-lg-12 col-md-12 col-6"><a href="contents/<%=Item.board_id%>"><%=Item.customer_id%></a> <span class="lnr lnr-user"></span></p>
+										<p class="user-name col-lg-12 col-md-12 col-6"><a href="/contents/<%=Item.board_id%>"><%=Item.customer_id%></a> <span class="lnr lnr-user"></span></p>
 										<p class="date col-lg-12 col-md-12 col-6"><%=Item.board_start%> ~<br><%=Item.board_arrive%>&nbsp;&nbsp;<span class="lnr lnr-calendar-full"></span></p>
-										<p class="view col-lg-12 col-md-12 col-6"><a href="#">평점 <%=Item.board_rating%>/5점</a> <span class="lnr lnr-eye"></span></p>
-										<p class="comments col-lg-12 col-md-12 col-6"><a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span></p>
+										<p class="view col-lg-12 col-md-12 col-6"><a href="#"><%=Item.board_hit%> Views</a> <span class="lnr lnr-eye"></span></p>
+										<p class="comments col-lg-12 col-md-12 col-6"><a href="#">평점 <%=Item.board_rating%>/5점</a> <span class="lnr lnr-bubble"></span></p>
 									</div>
 								</div>
 								<div class="col-lg-9 col-md-9 ">
 									<div class="feature-img">
 										<img class="img-fluid" src="<%=Item.board_img%>" alt="">
 									</div>
-									<a class="posts-title" href="contents/<%=Item.board_id%>"><h3><%=Item.board_title%></h3></a>
+									<a class="posts-title" href="/contents/<%=Item.board_id%>"><h3><%=Item.board_title%></h3></a>
 									<p class="excert">
 										<%=Item.board_content%>
 									</p>
-									<a href="contents/<%=Item.board_id%>" class="primary-btn">더 보기</a>
+									<a href="/contents/<%=Item.board_id%>" class="primary-btn">더 보기</a>
 								</div>
 							</div>
 							<%
+						}
 							}
 							%>
 							<nav class="blog-pagination justify-content-center d-flex">
@@ -136,10 +141,11 @@
 													</span>
 												</a>
 											</li>
-											<li class="page-item active"><a href="#" class="page-link">01</a></li>
-											<li class="page-item"><a href="#" class="page-link">02</a></li>
-											<li class="page-item"><a href="#" class="page-link">03</a></li>
-											<li class="page-item"><a href="#" class="page-link">04</a></li>
+											<li class="page-item"><a href="/board/0" class="page-link">01</a></li>
+											<li class="page-item"><a href="/board/1" class="page-link">02</a></li>
+											<li class="page-item"><a href="/board/2" class="page-link">03</a></li>
+											<li class="page-item"><a href="/board/3" class="page-link">04</a></li>
+											<li class="page-item"><a href="/board/4" class="page-link">05</a></li>
 											<li class="page-item">
 											<a href="#" class="page-link" aria-label="Next">
 													<span aria-hidden="true">
@@ -162,65 +168,46 @@
 										</li>
 									</ul>
 								</div>
-<!--
-								<div class="single-sidebar-widget post-category-widget">
-									<h4 class="category-title">카테고리</h4>
-									<div class="input-group-icon mt-10">
-										<div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-										<div class="form-select" id="default-select">
-											<select name="category" id="category" href="board?name=category">
-												<option value="1">카테고리 선택</option>
-												<option value="2">국내 여행</option>
-												<option value="3">동남아&nbsp;/&nbsp;대만</option>
-												<option value="4">중국&nbsp;/&nbsp;홍콩</option>
-												<option value="5">일본</option>
-												<option value="6">유럽</option>
-												<option value="7">미주&nbsp;/&nbsp;중남미&nbsp;/&nbsp;하와이</option>
-												<option value="8">남태평양&nbsp;/&nbsp;괌</option>
-											</select>
-										</div>
-									</div>
-								</div>-->
 								<div class="single-sidebar-widget post-category-widget">
 									<h4 class="category-title">Post Catgories</h4>
 									<ul class="cat-list">
 										<li>
-											<a href="board?id=1#package_manjum" class="d-flex justify-content-between">
+											<a href="../board/0?id=1#package_manjum" class="d-flex justify-content-between">
 												<p>전체 보기</p>
 											</a>
 										</li>
 										<li>
-											<a href="board?id=2#package_manjum" class="d-flex justify-content-between">
+											<a href="../board/0?id=2#package_manjum" class="d-flex justify-content-between">
 												<p>국내 여행</p>
 											</a>
 										</li>
 										<li>
-											<a href="board?id=3#package_manjum" class="d-flex justify-content-between">
+											<a href="../board/0?id=3#package_manjum" class="d-flex justify-content-between">
 												<p>동남아&nbsp;/&nbsp;대만</p>
 											</a>
 										</li>
 										<li>
-											<a href="board?id=4#package_manjum" class="d-flex justify-content-between">
+											<a href="../board/0?id=4#package_manjum" class="d-flex justify-content-between">
 												<p>중국&nbsp;/&nbsp;홍콩</p>
 											</a>
 										</li>
 										<li>
-											<a href="board?id=5#package_manjum" class="d-flex justify-content-between">
+											<a href="../board/0?id=5#package_manjum" class="d-flex justify-content-between">
 												<p>일본</p>
 											</a>
 										</li>
 										<li>
-											<a href="board?id=6#package_manjum" class="d-flex justify-content-between">
+											<a href="../board/0?id=6#package_manjum" class="d-flex justify-content-between">
 												<p>유럽</p>
 											</a>
 										</li>
 										<li>
-											<a href="board?id=7#package_manjum" class="d-flex justify-content-between">
+											<a href="../board/0?id=7#package_manjum" class="d-flex justify-content-between">
 												<p>미주&nbsp;/&nbsp;중남미&nbsp;/&nbsp;하와이</p>
 											</a>
 										</li>
 										<li>
-											<a href="board?id=8#package_manjum"class="d-flex justify-content-between">
+											<a href="../board/0?id=8#package_manjum"class="d-flex justify-content-between">
 												<p>남태평양&nbsp;/&nbsp;괌</p>
 											</a>
 										</li>
@@ -230,33 +217,21 @@
 								<div class="single-sidebar-widget popular-post-widget">
 									<h4 class="popular-title">인기있는 후기</h4>
 									<div class="popular-post-list">
+										<% for(var i=0; i<2; i++){
+										var Item  = rows[0][i];
+										%>
 										<div class="single-post-list d-flex flex-row align-items-center">
 											<div class="thumb">
-												<img class="img-fluid" src="img/blog/pp1.jpg" alt="">
+												<img class="img-fluid" src="../img/blog/pp1.jpg" alt="">
 											</div>
 											<div class="details">
-												<a href="blog-single.html"><h6>Space The Final Frontier</h6></a>
-												<p>02 Hours ago</p>
+												<a href="../contents/<%=Item.board_id%>"><h6><%=Item.board_title%></h6></a>
+												<p><%=Item.board_hit%> Views</p>
 											</div>
 										</div>
-										<div class="single-post-list d-flex flex-row align-items-center">
-											<div class="thumb">
-												<img class="img-fluid" src="img/blog/pp2.jpg" alt="">
-											</div>
-											<div class="details">
-												<a href="blog-single.html"><h6>The Amazing Hubble</h6></a>
-												<p>02 Hours ago</p>
-											</div>
-										</div>
-										<div class="single-post-list d-flex flex-row align-items-center">
-											<div class="thumb">
-												<img class="img-fluid" src="img/blog/pp3.jpg" alt="">
-											</div>
-											<div class="details">
-												<a href="blog-single.html"><h6>Astronomy Or Astrology</h6></a>
-												<p>02 Hours ago</p>
-											</div>
-										</div>
+										<%
+									}
+									%>
 									</div>
 								</div>
 								<!-- 광고 여행 넣을까?
@@ -327,14 +302,14 @@
 							<div class="single-footer-widget mail-chimp">
 								<h6 class="mb-20">InstaFeed</h6>
 								<ul class="instafeed d-flex flex-wrap">
-									<li><img src="img/i1.jpg" alt=""></li>
-									<li><img src="img/i2.jpg" alt=""></li>
-									<li><img src="img/i3.jpg" alt=""></li>
-									<li><img src="img/i4.jpg" alt=""></li>
-									<li><img src="img/i5.jpg" alt=""></li>
-									<li><img src="img/i6.jpg" alt=""></li>
-									<li><img src="img/i7.jpg" alt=""></li>
-									<li><img src="img/i8.jpg" alt=""></li>
+									<li><img src="../img/i1.jpg" alt=""></li>
+									<li><img src="../img/i2.jpg" alt=""></li>
+									<li><img src="../img/i3.jpg" alt=""></li>
+									<li><img src="../img/i4.jpg" alt=""></li>
+									<li><img src="../img/i5.jpg" alt=""></li>
+									<li><img src="../img/i6.jpg" alt=""></li>
+									<li><img src="../img/i7.jpg" alt=""></li>
+									<li><img src="../img/i8.jpg" alt=""></li>
 								</ul>
 							</div>
 						</div>
@@ -355,19 +330,19 @@
 			</footer>
 			<!-- End footer Area -->
 
-			<script src="js/vendor/jquery-2.2.4.min.js"></script>
-			<script src="js/popper.min.js"></script>
-			<script src="js/vendor/bootstrap.min.js"></script>
+			<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+			<script src="/js/popper.min.js"></script>
+			<script src="/js/vendor/bootstrap.min.js"></script>
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-			<script src="js/jquery-ui.js"></script>
-				<script src="js/easing.min.js"></script>
-			<script src="js/hoverIntent.js"></script>
-			<script src="js/superfish.min.js"></script>
-			<script src="js/jquery.ajaxchimp.min.js"></script>
-			<script src="js/jquery.magnific-popup.min.js"></script>
-			<script src="js/jquery.nice-select.min.js"></script>
-			<script src="js/owl.carousel.min.js"></script>
-			<script src="js/mail-script.js"></script>
-			<script src="js/main.js"></script>
+			<script src="/js/jquery-ui.js"></script>
+				<script src="/js/easing.min.js"></script>
+			<script src="/js/hoverIntent.js"></script>
+			<script src="/js/superfish.min.js"></script>
+			<script src="/js/jquery.ajaxchimp.min.js"></script>
+			<script src="/js/jquery.magnific-popup.min.js"></script>
+			<script src="/js/jquery.nice-select.min.js"></script>
+			<script src="/js/owl.carousel.min.js"></script>
+			<script src="/js/mail-script.js"></script>
+			<script src="/js/main.js"></script>
 		</body>
 	</html>

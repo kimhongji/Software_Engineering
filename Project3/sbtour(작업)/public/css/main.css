@@ -1438,7 +1438,7 @@ h1, h2, h3, h4, h5, h6 {
   outline: none;
   background: #fff;
   padding: 0 20px;
-  height: 100px;
+  height: 450px;
   resize: none;
 }
 
@@ -2488,6 +2488,11 @@ body.mobile-nav-active #mobile-nav-toggle {
   background-size: cover;
 }
 
+.banner-area_join {
+  background: url(../img/hero-bg.jpg) center;
+  background-size: cover;
+}
+
 .banner-area .overlay-bg {
   background: rgba(4, 9, 30, 0.4);
 }
@@ -3157,7 +3162,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 /*-------- start destinations-area Style  -------------*/
 .destinations-area {
   background: #f9f9ff;
+ 
 }
+
 
 .destinations-area .single-destinations {
   margin-top: 30px;
@@ -3216,6 +3223,13 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .destinations-area .star .checked {
   color: orange;
+}
+
+
+.destinations-area-join {
+  background: #f9f9ff;
+  width: 360px;
+  height: 400px;
 }
 
 /*-------- end destinations-area Style  -------------*/

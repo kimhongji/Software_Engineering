@@ -15,7 +15,9 @@ $(document).ready(function() {
     // ------- Datepicker  js --------//  
 
       $( function() {
-        $( ".date-picker" ).datepicker();
+        $( ".date-picker" ).datepicker({
+             dateFormat: 'yy/mm/dd'
+        });
       } );
 
 

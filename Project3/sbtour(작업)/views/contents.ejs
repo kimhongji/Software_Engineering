@@ -31,75 +31,7 @@
     <link rel="stylesheet" href="/css/main.css">
   </head>
   <body>
-    <header id="header">
-      <div class="header-top">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-6 col-sm-6 col-6 header-top-left">
-              <ul>
-                <li><a href="#">Visit Us</a></li>
-                <li><a href="#">Buy Tickets</a></li>
-              </ul>
-            </div>
-            <div class="col-lg-6 col-sm-6 col-6 header-top-right">
-            <div class="header-social">
-              <a href="#"><i class="fa fa-facebook"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-              <a href="#"><i class="fa fa-dribbble"></i></a>
-              <a href="#"><i class="fa fa-behance"></i></a>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="container main-menu">
-        <div class="row align-items-center justify-content-between d-flex">
-            <div class="nav-menu" id="logo">
-          <a href="/index"><font size="5pt">Saebit Tour</font></a>
-            </div>
-            <nav id="nav-menu-container">
-              <ul class="nav-menu">
-                <li>
-                  <a href="/index">Home</a>
-                </li>
-                <li class="menu-has-children">
-                    <a href="/packages/korea">국내</a>
-                </li>
-                <li class="menu-has-children">
-                  <a href="">해외</a>
-                  <ul>
-                    <li>
-                      <a href="/packages/sa">동남아/대만</a>
-                    </li>
-                    <li>
-                      <a href="/packages/china">중국/홍콩</a>
-                    </li>
-                    <li>
-                      <a href="/packages/japan">일본</a>
-                    </li>
-                    <li>
-                      <a href="/packages/europe">유럽</a>
-                    </li>
-                    <li>
-                      <a href="/packages/hawaii">미주/중남미/하와이</a>
-                    </li>
-                    <li>
-                      <a href="/packages/guam">남태평양/괌</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="/board">게시판</a>
-                </li>
-                <li>
-                  <a href="/contact">Contact</a>
-                </li>
-              </ul>
-            </nav>
-            <!-- #nav-menu-container -->
-        </div>
-      </div>
-    </header><!-- #header -->
+      	<% include header.html %>
 
     <!-- start banner Area -->
     <section class="relative about-banner">
@@ -108,9 +40,9 @@
         <div class="row d-flex align-items-center justify-content-center">
           <div class="about-content col-lg-12">
             <h1 class="text-white">
-              여기에 뭘 넣으묜 좋을까??!!이 글의 package상품 상세로 바로 가도록?!
+              이 후기의 패기지를 더 자세하게 알고 싶으신가요?
             </h1>
-            <p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="blog-home.html">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="blog-single.html"> Blog Details Page</a></p>
+            <p class="text-white link-nav"><span class="lnr lnr-arrow-right"></span><a href="index.html">해당 패키지 상품 바로가기</a></p>
           </div>
         </div>
       </div>
@@ -132,16 +64,16 @@
                 <br><br><br><br>
                 <div class="user-details row">
                   <p class="user-name col-lg-12 col-md-12 col-6"><a href="#">몇 명 갔는지?!</a> <span class="lnr lnr-user"></span></p>
-                  <p class="date col-lg-12 col-md-12 col-6"><%=rows.board_start%> ~<br><%=rows.board_arrive%>&nbsp;&nbsp;<span class="lnr lnr-calendar-full"></span></p>
-                  <p class="view col-lg-12 col-md-12 col-6"><a href="#">평점 <%=rows.board_rating%>/5점</a> <span class="lnr lnr-eye"></span></p>
-                  <p class="comments col-lg-12 col-md-12 col-6"><a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span></p>
+                  <p class="date col-lg-12 col-md-12 col-6"><%=rows[1][0].board_start%> ~<br><%=rows[1][0].board_arrive%>&nbsp;&nbsp;<span class="lnr lnr-calendar-full"></span></p>
+                  <p class="view col-lg-12 col-md-12 col-6"><a href="#"><%=rows[1][0].board_hit%> Views</a> <span class="lnr lnr-eye"></span></p>
+                  <p class="comments col-lg-12 col-md-12 col-6"><a href="#">평점 <%=rows[1][0].board_rating%>/5점</a> <span class="lnr lnr-bubble"></span></p>
                 </div>
               </div>
               <div class="col-lg-9 col-md-9">
-                <h3 class="mt-20 mb-20"><%=rows.board_title%></h3>
-                <p><&nbsp;패키지 - &nbsp;<%=rows.package_id%>&nbsp;></p>
+                <h3 class="mt-20 mb-20"><%=rows[1][0].board_title%></h3>
+                <p><&nbsp;패키지 - &nbsp;<%=rows[1][0].package_id%>&nbsp;></p>
                 <p class="excert">
-                  <%=rows.board_content%>
+                  <%=rows[1][0].board_content%>
                 </p>
               </div>
               <div class="col-lg-12">
@@ -158,61 +90,6 @@
                 </div>
               </div>
             </div>
-            <div class="comments-area">
-              <h4>03 Comments</h4>
-              <div class="comment-list">
-                                  <div class="single-comment justify-content-between d-flex">
-                                      <div class="user justify-content-between d-flex">
-                                          <div class="thumb">
-                                              <img src="/img/blog/c1.jpg" alt="">
-                                          </div>
-                                          <div class="desc">
-                                              <h5><a href="#">Emilly Blunt</a></h5>
-                                              <p class="date">December 4, 2017 at 3:12 pm </p>
-                                              <p class="comment">
-                                                  Never say goodbye till the end comes!
-                                              </p>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-              <div class="comment-list">
-                                  <div class="single-comment justify-content-between d-flex">
-                                      <div class="user justify-content-between d-flex">
-                                          <div class="thumb">
-                                              <img src="/img/blog/c5.jpg" alt="">
-                                          </div>
-                                          <div class="desc">
-                                              <h5><a href="#">Ina Hayes</a></h5>
-                                              <p class="date">December 4, 2017 at 3:12 pm </p>
-                                              <p class="comment">
-                                                  Never say goodbye till the end comes!
-                                              </p>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-            </div>
-            <div class="comment-form">
-              <h4>Leave a Comment</h4>
-              <form>
-                <div class="form-group form-inline">
-                  <div class="form-group col-lg-6 col-md-12 name">
-                    <input type="text" class="form-control" id="name" placeholder="Enter Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'">
-                  </div>
-                  <div class="form-group col-lg-6 col-md-12 email">
-                    <input type="email" class="form-control" id="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" id="subject" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'">
-                </div>
-                <div class="form-group">
-                  <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
-                </div>
-                <a href="#" class="primary-btn text-uppercase">Post Comment</a>
-              </form>
-            </div>
           </div>
           <div class="col-lg-4 sidebar-widgets">
             <div class="widget-wrap">
@@ -224,7 +101,7 @@
               </div>-->
               <div class="single-sidebar-widget user-info-widget">
                 <img src="/img/blog/user-info.png" alt="">
-                <a href="#"><h4><%=rows.customer_id%></h4></a>
+                <a href="#"><h4><%=rows[1][0].customer_id%></h4></a>
                 <p>
                   Senior blog writer
                 </p>
@@ -234,63 +111,44 @@
                   <li><a href="#"><i class="fa fa-github"></i></a></li>
                   <li><a href="#"><i class="fa fa-behance"></i></a></li>
                 </ul>
-              </div>
+                <form action="/contents/<%=rows[1][0].board_id%>" method="post" onsubmit="return onWriteSubmit()">
               <div class="single-sidebar-widget post-category-widget">
-              <li>  <h4 class="category-title">글 수정</h4></li>
-              <li><h4 class="category-title">글 삭제</h4></li>
-              </div>
-              <!--
-              <div class="single-sidebar-widget post-category-widget">
-                <h4 class="category-title">카테고리</h4>
-                <div class="input-group-icon mt-10">
-                  <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                  <div class="form-select" id="default-select">
-                    <select name="package" id="package">
-                      <option value="1">카테고리 선택</option>
-                      <option value="2">국내 여행</option>
-                      <option value="3">동남아&nbsp;/&nbsp;대만</option>
-                      <option value="4">중국&nbsp;/&nbsp;홍콩</option>
-                      <option value="5">일본</option>
-                      <option value="6">유럽</option>
-                      <option value="7">미주&nbsp;/&nbsp;중남미&nbsp;/&nbsp;하와이</option>
-                      <option value="8">남태평양&nbsp;/&nbsp;괌</option>
-                    </select>
-                  </div>
+                <div class="button-group-area mt-40">
+                  <h3><button type="submit" class="genric-btn primary e-large">글 삭제</button></h3>
                 </div>
               </div>
-            -->
-              <div class="single-sidebar-widget popular-post-widget">
-                <h4 class="popular-title">인기있는 후기</h4>
-                <div class="popular-post-list">
-                  <div class="single-post-list d-flex flex-row align-items-center">
-                    <div class="thumb">
-                      <img class="img-fluid" src="img/blog/pp1.jpg" alt="">
-                    </div>
-                    <div class="details">
-                      <a href="blog-single.html"><h6>Space The Final Frontier</h6></a>
-                      <p>02 Hours ago</p>
-                    </div>
+            </form>
+              </div>
+              <div class="single-sidebar-widget post-category-widget">
+                <a href="/insertcon"><h4 class="category-title">글 쓰기</h4></a>
+                <ul class="cat-list">
+                  <li>
+                    <a class="d-flex justify-content-between">
+                      <p>&nbsp;&nbsp;즐거웠던 여행에 대해 후기를 남겨주세요!</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            <div class="single-sidebar-widget popular-post-widget">
+              <h4 class="popular-title">인기있는 후기</h4>
+              <div class="popular-post-list">
+                <% for(var i=0; i<2; i++){
+                var Item  = rows[2][i];
+                %>
+                <div class="single-post-list d-flex flex-row align-items-center">
+                  <div class="thumb">
+                    <img class="img-fluid" src="img/blog/pp1.jpg" alt="">
                   </div>
-                  <div class="single-post-list d-flex flex-row align-items-center">
-                    <div class="thumb">
-                      <img class="img-fluid" src="img/blog/pp2.jpg" alt="">
-                    </div>
-                    <div class="details">
-                      <a href="blog-single.html"><h6>The Amazing Hubble</h6></a>
-                      <p>02 Hours ago</p>
-                    </div>
-                  </div>
-                  <div class="single-post-list d-flex flex-row align-items-center">
-                    <div class="thumb">
-                      <img class="img-fluid" src="img/blog/pp3.jpg" alt="">
-                    </div>
-                    <div class="details">
-                      <a href="blog-single.html"><h6>Astronomy Or Astrology</h6></a>
-                      <p>02 Hours ago</p>
-                    </div>
+                  <div class="details">
+                    <a href="/contents/<%=Item.board_id%>"><h6><%=Item.board_title%></h6></a>
+                    <p><%=Item.board_hit%> Views</p>
                   </div>
                 </div>
+                <%
+              }
+              %>
               </div>
+            </div>
               <!--<div class="single-sidebar-widget ads-widget">
                 <a href="#"><img class="img-fluid" src="/img/blog/ads-banner.jpg" alt=""></a>
               </div>광고 넣을까용?!-->

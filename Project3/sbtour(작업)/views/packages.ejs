@@ -137,7 +137,7 @@
 								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=highprice#package_info" class="genric-btn success-border radius" id="highprice" name="sort">높은가격순</a>
 								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=hit#package_info" class="genric-btn info-border radius" id="hit" name="sort">인기순</a>
 								<a href="/packages_sort/<%=rows[0].tour_id%>?sort=named#package_info" class="genric-btn warning-border radius" id="named" name="sort">이름순</a>
-								<a href="/packages_sort/ex2" class="genric-btn danger-border radius" id="ex2" name="sort">필터</a>
+								
 						</div>									
 					<div class="row">
 						<%
@@ -151,9 +151,7 @@
 								</div>
 								<div class="details">
 									<h4><%=oneItem.package_id%></h4>
-									<p>
-										United staes of America
-									</p>
+						
 									<ul class="package-list">
 										<li class="d-flex justify-content-between align-items-center">
 											<span>Duration</span>
@@ -173,7 +171,7 @@
 										</li>
 										<li class="d-flex justify-content-between align-items-center">
 											<span>Price per person</span>
-											<a href="#" class="price-btn"><%=oneItem.package_cost%>만원</a>
+											<a href="/product/<%=oneItem.package_id%>" class="price-btn"><%=oneItem.package_cost%>0,000원</a>
 										</li>													
 									</ul>
 								</div>

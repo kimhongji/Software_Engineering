@@ -42,21 +42,17 @@
 		<div class="container">
 			<div class="row fullscreen align-items-center justify-content-between">
 				<div class="col-lg-6 col-md-6 banner-left">
-					<h6 class="text-white">Away from monotonous life</h6>
-					<h1 class="text-white">Magical Travel</h1>
+					<h6 class="text-white">여행을 떠나요</h6>
+					<h1 class="text-white">Saebit tour</h1>
 					<p class="text-white">
 						If you are looking at blank cassettes on the web, you may be very confused at the difference in price. You may see some for
 						as low as $.17 each.
 					</p>
-					<a href="#" class="primary-btn text-uppercase">Get Started</a>
 				</div>
 				<div class="col-lg-4 col-md-6 banner-right">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link active" id="korea-tab" data-toggle="tab" href="#korea" role="tab" aria-controls="korea" aria-selected="true">국내여행</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" id="oversea-tab" data-toggle="tab" href="#oversea" role="tab" aria-controls="oversea" aria-selected="false">해외여행</a>
+							<a class="nav-link active" id="korea-tab" data-toggle="tab" href="#korea" role="tab" aria-controls="korea" aria-selected="true">패키지검색</a>
 						</li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
@@ -69,38 +65,15 @@
 
 								<label for="r_arrive_city" class="ir">출발일</label>
 								<br>
-								<input type="text" class="form-control date-picker" name="start" placeholder="Start" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
+								<input type="text" class="form-control date-picker" format="yyyy/mm/dd" name="start" placeholder="Start" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
 								<label for="r_arrive_city" class="ir">도착일</label>
 								<br>
-								<input type="text" class="form-control date-picker" name="return" placeholder="Return" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
+								<input type="text" class="form-control date-picker" name="end" placeholder="Return" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
 
 
-								<button class="primary-btn" type="submit" id="jq_korea_search">
-									검색하기
-									<span></span>
-								</button>
+								<button class="primary-btn" type="submit" id="jq_korea_search">검색하기</button>
 							</form>
 						</div>
-						<div class="tab-pane fade" id="oversea" role="tabpanel" aria-labelledby="oversea-tab">
-								<form class="form-wrap" method="get" onsubmit="return onWriteSubmit()" encType="multipart/form-data" action="/packages_search">
-									<label for="r_arrive_city" class="ir">여행도시</label>
-									<br>
-									<input type="hidden">
-									<input type="text" class="form-control" id="om_text_search_city" name="city_name" placeholder="도시명을 입력해 주세요" onblur="this.placeholder">
-									<label for="r_arrive_city" class="ir">출발일</label>
-									<br>
-									<input type="text" class="form-control date-picker" name="start" placeholder="Start" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-									<label for="r_arrive_city" class="ir">도착일</label>
-									<br>
-									<input type="text" class="form-control date-picker" name="return" placeholder="Return" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-	
-	
-									<button class="primary-btn" type="submit" id="jq_oversea_search">
-										검색하기
-										<span></span>
-									</button>
-								</form>
-							</div>
 					   </div>
 				</div>
 			</div>
@@ -131,7 +104,7 @@
 							<img class="img-fluid" style="width: 440px; height: 200px;" src="img/packages/<%=oneItem.package_img%>" alt="">
 						</div>
 						<div class="desc">
-							<a href="/product/<%=oneItem.package_id%>" class="price-btn"><%=oneItem.package_cost%>만원</a>
+							<a href="/product/<%=oneItem.package_id%>" class="price-btn"><%=oneItem.package_cost%>0,000원</a>
 							<!--이런식으로 data 추가  -->
 							<h4><%=oneItem.package_id%></h4> 
 							<p>Paraguay</p>

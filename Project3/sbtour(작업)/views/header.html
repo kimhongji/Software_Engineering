@@ -47,15 +47,21 @@
 				</div>
 				<nav id="nav-menu-container">
 						<ul class="nav-menu">
-							<li>
-								<a href="/login">login</a>
-							</li>
-							<li>
-								<a href="/logout">logout</a>
-							</li> 
-							<li>
-								<a href="/index">Home</a>
-							</li>
+								<% if (login == 'login'){%>
+									<li>
+										<a href="/logout">logout</a>
+									</li>
+									<%} else {%>
+										<li>
+											<a href="/login">login</a>
+										</li>
+										<li>
+											<a href="/joinForm">join</a>
+										</li>
+										<%}%>
+											<li>
+												<a href="/index">Home</a>
+											</li>
 							<li class="menu-has-children">
 									<a href="/packages/korea">국내</a>
 							</li>
@@ -83,10 +89,10 @@
 								</ul>
 							</li>
 							<li>
-								<a href="/board">게시판</a>
+								<a href="/board/0">게시판</a>
 							</li>
 							<li>
-								<a href="/contact">Contact</a>
+								<a href="/profile_get">My</a>
 							</li>
 						</ul>
 					</nav>
