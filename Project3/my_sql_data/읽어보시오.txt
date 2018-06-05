@@ -1,2 +1,0 @@
-/img/packages에 사진들 다 복붙하구(뭐 뜨면 덮어쓰기 해버리기 걍)
-board 드롭 하고 다시 insert 요 sql로 해죠

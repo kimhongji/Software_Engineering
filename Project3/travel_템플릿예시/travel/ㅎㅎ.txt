@@ -1,6 +1,0 @@
-nav_bar : 
-	home, about(수정), package *2 개로 해서 국내 해외로 나눔, 
-	hotels(삭제), insurence(삭제), blog(게시판 처럼 여행 후기), 
-	pages(갖다쓰는용), contact(일단 냄겨둠)
-
-package :  여행 나와있는 방법 ( 카드처럼 )그렇게 바꿀까 
