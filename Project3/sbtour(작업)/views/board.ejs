@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+	<html lang="zxx" class="no-js">
+	<head>
+		<!-- Mobile Specific Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Favicon-->
+		<link rel="shortcut icon" href="img/fav.png">
+		<!-- Author Meta -->
+		<meta name="author" content="colorlib">
+		<!-- Meta Description -->
+		<meta name="description" content="">
+		<!-- Meta Keyword -->
+		<meta name="keywords" content="">
+		<!-- meta character set -->
+		<meta charset="UTF-8">
+		<!-- Site Title -->
+		<title>Travel</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+			<!--
+			CSS
+			============================================= -->
+			<link rel="stylesheet" href="/css/linearicons.css">
+			<link rel="stylesheet" href="/css/font-awesome.min.css">
+			<link rel="stylesheet" href="/css/bootstrap.css">
+			<link rel="stylesheet" href="/css/magnific-popup.css">
+			<link rel="stylesheet" href="/css/jquery-ui.css">
+			<link rel="stylesheet" href="/css/nice-select.css">
+			<link rel="stylesheet" href="/css/animate.min.css">
+			<link rel="stylesheet" href="/css/owl.carousel.css">
+			<link rel="stylesheet" href="/css/main.css">
+		</head>
+		<body>
+				<% include header.html %>
+				<!-- #header -->
+
+			<!-- start banner Area -->
+			<section class="banner-area relative blog-home-banner" id="home">
+				<div class="overlay overlay-bg"></div>
+				<div class="container">
+					<div class="row d-flex align-items-center justify-content-center">
+						<div class="about-content blog-header-content col-lg-12">
+							<h1 class="text-white">
+								멋진 여행
+							</h1>
+							<p class="text-white">
+								후기를 남겨주세요
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End banner Area -->
+
+			<!-- Start top-categoryif(rows[i].board_rating==5 && k<3) {
+								var Item = rows[i];
+								k++;-widget Area -->
+			<section class="top-category-widget-area pt-90 pb-90 " id="package_manjum">
+				<div class="container">
+						<div class="posts-title"><h3>패키지 만점을 준 후기들!</h3></div>
+						<p></p><p></p>
+					<div class="row">
+
+						<% 	var k =0;
+						for (var i =0; i<rows[1].length; i++){
+							if(rows[1][i].board_rating==5 && k<3&&rows[1][i]!=null) {
+								var Item = rows[1][i];
+								k++;
+								%>
+						<div class="col-lg-4">
+							<div class="single-cat-widget">
+								<div class="content relative">
+									<div class="overlay overlay-bg"></div>
+									<!--<a href="/contents/<%=Item.board_id%>" target="_blank">-->
+										<a href="/contents/<%=Item.board_id%>">
+											<div class="thumb">
+											<img class="content-image img-fluid d-block mx-auto" style="width: 440px; height: 200px"; src="/img/packages/<%=Item.board_img%>" alt="">
+											</div>
+											<div class="content-details">
+												<h4 class="content-title mx-auto text-uppercase" href="contents/<%=Item.board_id%>"><%=Item.package_id%></h4>
+												<span></span>
+												<p><%=Item.board_title%></p>
+											</div>
+										</a>
+								</div>
+							</div>
+						</div>
+						<%
+					}
+							}
+						%>
+					</div>
+				</div>
+			</section>
+			<!-- End top-category-widget Area -->
+
+			<!-- Start post-content Area -->
+			<section class="post-content-area">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8 posts-list">
+							<% for (var i =page*5; i<(page*5)+5; i++){
+								if(rows[1][i]!=null){
+							 var Item = rows[1][i];
+							 %>
+							<div class="single-post row">
+								<div class="col-lg-3  col-md-3 meta-details">
+									<br>
+									<ul class="tags">
+										<li><a href="#">패키지&nbsp;:&nbsp;<%=Item.package_id%></a></li>
+									</ul>
+									<div class="user-details row">
+										<p class="user-name col-lg-12 col-md-12 col-6"><a href="/contents/<%=Item.board_id%>"><%=Item.customer_id%></a> <span class="lnr lnr-user"></span></p>
+										<p class="date col-lg-12 col-md-12 col-6"><%=Item.board_start%> ~<br><%=Item.board_arrive%>&nbsp;&nbsp;<span class="lnr lnr-calendar-full"></span></p>
+										<p class="view col-lg-12 col-md-12 col-6"><a href="#"><%=Item.board_hit%> Views</a> <span class="lnr lnr-eye"></span></p>
+										<p class="comments col-lg-12 col-md-12 col-6"><a href="#">평점 <%=Item.board_rating%>/5점</a> <span class="lnr lnr-bubble"></span></p>
+									</div>
+								</div>
+								<div class="col-lg-9 col-md-9 ">
+									<div class="feature-img">
+											<img class="img-fluid" src="/img/packages/<%=Item.board_img%>" alt="">
+									</div>
+									<a class="posts-title" href="/contents/<%=Item.board_id%>"><h3><%=Item.board_title%></h3></a>
+									<p class="excert">
+											<% for (var j =0; j<200; j++){
+												if(Item.board_content[j]!=null) { %>
+												<%=Item.board_content[j]%>
+												<%
+												}
+											}%>
+									</p>
+									<a href="/contents/<%=Item.board_id%>" class="primary-btn">더 보기</a>
+								</div>
+							</div>
+							<%
+						}
+							}
+							%>
+							<nav class="blog-pagination justify-content-center d-flex">
+									<ul class="pagination">
+											<li class="page-item">
+												<a href="#" class="page-link" aria-label="Previous">
+													<span aria-hidden="true">
+														<span class="lnr lnr-chevron-left"></span>
+													</span>
+												</a>
+											</li>
+											<li class="page-item"><a href="/board/0" class="page-link">01</a></li>
+											<li class="page-item"><a href="/board/1" class="page-link">02</a></li>
+											<li class="page-item"><a href="/board/2" class="page-link">03</a></li>
+											<li class="page-item"><a href="/board/3" class="page-link">04</a></li>
+											<li class="page-item"><a href="/board/4" class="page-link">05</a></li>
+											<li class="page-item">
+											<a href="#" class="page-link" aria-label="Next">
+													<span aria-hidden="true">
+														<span class="lnr lnr-chevron-right"></span>
+													</span>
+											</a>
+										</li>
+									</ul>
+							</nav>
+						</div>
+						<div class="col-lg-4 sidebar-widgets">
+							<div class="widget-wrap">
+								<div class="single-sidebar-widget post-category-widget">
+									<a href="/insertcon"><h4 class="category-title">글 쓰기</h4></a>
+									<ul class="cat-list">
+										<li>
+											<a class="d-flex justify-content-between">
+												<p>&nbsp;&nbsp;즐거웠던 여행에 대해 후기를 남겨주세요!</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="single-sidebar-widget post-category-widget">
+									<h4 class="category-title">Post Catgories</h4>
+									<ul class="cat-list">
+										<li>
+											<a href="../board/0?id=1#package_manjum" class="d-flex justify-content-between">
+												<p>전체 보기</p>
+											</a>
+										</li>
+										<li>
+											<a href="../board/0?id=2#package_manjum" class="d-flex justify-content-between">
+												<p>국내 여행</p>
+											</a>
+										</li>
+										<li>
+											<a href="../board/0?id=3#package_manjum" class="d-flex justify-content-between">
+												<p>동남아&nbsp;/&nbsp;대만</p>
+											</a>
+										</li>
+										<li>
+											<a href="../board/0?id=4#package_manjum" class="d-flex justify-content-between">
+												<p>중국&nbsp;/&nbsp;홍콩</p>
+											</a>
+										</li>
+										<li>
+											<a href="../board/0?id=5#package_manjum" class="d-flex justify-content-between">
+												<p>일본</p>
+											</a>
+										</li>
+										<li>
+											<a href="../board/0?id=6#package_manjum" class="d-flex justify-content-between">
+												<p>유럽</p>
+											</a>
+										</li>
+										<li>
+											<a href="../board/0?id=7#package_manjum" class="d-flex justify-content-between">
+												<p>미주&nbsp;/&nbsp;중남미&nbsp;/&nbsp;하와이</p>
+											</a>
+										</li>
+										<li>
+											<a href="../board/0?id=8#package_manjum"class="d-flex justify-content-between">
+												<p>남태평양&nbsp;/&nbsp;괌</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+
+								<div class="single-sidebar-widget popular-post-widget">
+									<h4 class="popular-title">인기있는 후기</h4>
+									<div class="popular-post-list">
+										<% for(var i=0; i<3; i++){
+										if(rows[0][i]!=null){
+										var Item  = rows[0][i];
+										%>
+										<div class="single-post-list d-flex flex-row align-items-center">
+											<div class="thumb">
+													<img class="img-fluid" style="width: 120px; height: 80px;" src="/img/packages/<%=Item.board_img%>" alt="">
+											</div>
+											<div class="details">
+												<a href="../contents/<%=Item.board_id%>"><h6><%=Item.board_title%></h6></a>
+												<p><%=Item.board_hit%> Views</p>
+											</div>
+										</div>
+										<%
+									}
+									}
+									%>
+									</div>
+								</div>
+								<!-- 광고 여행 넣을까?
+								<div class="single-sidebar-widget ads-widget">
+									<a href="#"><img class="img-fluid" src="img/blog/ads-banner.jpg" alt=""></a>
+								</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End post-content Area -->
+
+			<!-- start footer Area 하단 부분-->
+			<% include footer.html %>
+			<!-- End footer Area -->
+
+			<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+			<script src="/js/popper.min.js"></script>
+			<script src="/js/vendor/bootstrap.min.js"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+			<script src="/js/jquery-ui.js"></script>
+				<script src="/js/easing.min.js"></script>
+			<script src="/js/hoverIntent.js"></script>
+			<script src="/js/superfish.min.js"></script>
+			<script src="/js/jquery.ajaxchimp.min.js"></script>
+			<script src="/js/jquery.magnific-popup.min.js"></script>
+			<script src="/js/jquery.nice-select.min.js"></script>
+			<script src="/js/owl.carousel.min.js"></script>
+			<script src="/js/mail-script.js"></script>
+			<script src="/js/main.js"></script>
+		</body>
+	</html>
