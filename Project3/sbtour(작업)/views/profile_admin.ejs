@@ -45,7 +45,6 @@
                     </div>
                     <div class="col-lg-5 col-md-6 banner-right">
                         <div id="myTabContent">
-                            <!-- 소비자 로그인창 -->
                             <div class="container">
                                 <div class="row">
                                     <div class="destinations-area destinations-area-join">
@@ -54,34 +53,30 @@
                                                 <img style="width: 180px; height: 150px;" src="/img/profile.png" alt="">
                                             </div>
                                             <div class="details">
-                                                <h4><%=rows[0].seller_id%></h4>
+                                                <h4><%=rows[0].admin_id%></h4>
                                                 <p>
-                                                    seller
+                                                    admin
                                                 </p>
                                                 <ul class="package-list">
                                                     <li class="d-flex justify-content-between align-items-center">
                                                         <span>Name</span>
-                                                        <span><%=rows[0].seller_name%></span>
-                                                    </li>
-                                                    <li class="d-flex justify-content-between align-items-center">
-                                                        <span>phone</span>
-                                                        <span><%=rows[0].seller_phone%></span>
-                                                    </li>
-                                                    <li class="d-flex justify-content-between align-items-center">
-                                                        <span>email</span>
-                                                        <span><%=rows[0].seller_email%></span>
-                                                    </li>
-                                                    <li class="d-flex justify-content-between align-items-center">
-                                                        <span>account</span>
-                                                        <span><%=rows[0].seller_account%></span>
+                                                        <span><%=rows[0].admin_name%></span>
                                                     </li>
                                                     <li class="d-flex justify-content-between ">
-                                                        <span>판매 현황</span>
-                                                        <a href="/selling_product_my" class="price-btn">check</a>
+                                                        <span>고객 리스트</span>
+                                                        <a href="/admin_customer_list" class="price-btn">확인</a>
                                                     </li>
                                                     <li class="d-flex justify-content-between ">
-                                                        <span>판매 하기</span>
-                                                        <a href="/sale_product" class="price-btn">go</a>
+                                                        <span>전체 예약 확인</span>
+                                                        <a href="/admin_reservation_list" class="price-btn">확인</a>
+                                                    </li>
+                                                    <li class="d-flex justify-content-between ">
+                                                        <span>판매자 리스트</span>
+                                                        <a href="/admin_seller_list" class="price-btn">확인</a>
+                                                    </li>
+                                                    <li class="d-flex justify-content-between ">
+                                                        <span>전체 상품 확인</span>
+                                                        <a href="/admin_package_list" class="price-btn">확인</a>
                                                     </li>
                                                 </ul>
                                             </div>
